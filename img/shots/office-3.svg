@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Офисная мебель — место для фотографии проекта">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#e4e0d9"/><stop offset="1" stop-color="#c8c1b6"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M0 0v60" stroke="#8d8579" stroke-width="1" opacity="0.18"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" fill="url(#grid)"/>
+  <circle cx="985" cy="205" r="330" fill="#8d8579" opacity="0.10"/>
+  <g transform="translate(600 415) scale(6.2) translate(-24 -24)" fill="none" stroke="#8d8579"
+     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <rect x="12" y="6" width="24" height="12" rx="1.6"/> <path d="M24 6v12"/> <path d="M4 24h40"/> <path d="M9 24v18M39 24v18"/> <rect x="14" y="28" width="16" height="12" rx="1.6"/> <path d="M14 34h16"/>
+  </g>
+  <g font-family="Manrope, 'Trebuchet MS', Arial, sans-serif" fill="#4a453e">
+    <text x="600" y="735" font-size="46" font-weight="700" text-anchor="middle" letter-spacing="1">Офисная мебель</text>
+    <text x="600" y="790" font-size="28" font-weight="500" text-anchor="middle" opacity="0.72">проект 03 · место для фото</text>
+  </g>
+</svg>
