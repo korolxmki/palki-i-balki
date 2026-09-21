@@ -1,0 +1,13 @@
+{
+  "name": "palki-i-balki",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Сайт ателье мебели «Палки и Балки» — статика без сборки",
+  "scripts": {
+    "dev": "npx --yes serve@14 --listen 4173 --no-clipboard .",
+    "start": "npm run dev",
+    "preview": "npm run dev",
+    "serve:python": "python3 -m http.server 4173",
+    "assets": "python3 tools/gen_assets.py && python3 tools/prep_photos.py"
+  }
+}

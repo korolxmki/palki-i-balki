@@ -19,7 +19,22 @@ tools/prep_photos.py  готовит слои героя из исходного
 tools/gen_assets.py   плейсхолдеры, фавикон, og и SVG-спрайт иконок
 ```
 
-Посмотреть локально: `python3 -m http.server 8000` → http://127.0.0.1:8000
+## Запуск
+
+```bash
+npm run dev          # → http://localhost:4173
+```
+
+Скрипт поднимает `serve` через npx, ставить ничего не нужно. Без Node:
+
+```bash
+npm run serve:python # то же самое на python, порт тот же
+# или
+python3 -m http.server 4173
+```
+
+Сборки нет: HTML отдаётся как есть, поэтому Vite/webpack не нужны —
+правку в файле видно после обычного обновления страницы.
 
 ## Палитра
 
