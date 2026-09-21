@@ -1,20 +1,20 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Мебель для ванной — место для фотографии проекта">
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
-      <stop offset="0" stop-color="#3c3936"/><stop offset="1" stop-color="#262321"/>
+      <stop offset="0" stop-color="#3a2f28"/><stop offset="1" stop-color="#221c18"/>
     </linearGradient>
     <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
-      <path d="M0 0v60" stroke="#a09587" stroke-width="1" opacity="0.18"/>
+      <path d="M0 0v60" stroke="#a9917f" stroke-width="1" opacity="0.18"/>
     </pattern>
   </defs>
   <rect width="1200" height="900" fill="url(#bg)"/>
   <rect width="1200" height="900" fill="url(#grid)"/>
-  <circle cx="985" cy="205" r="330" fill="#a09587" opacity="0.10"/>
-  <g transform="translate(600 415) scale(6.2) translate(-24 -24)" fill="none" stroke="#a09587"
+  <circle cx="985" cy="205" r="330" fill="#a9917f" opacity="0.10"/>
+  <g transform="translate(600 415) scale(6.2) translate(-24 -24)" fill="none" stroke="#a9917f"
      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
     <ellipse cx="17" cy="20" rx="8.5" ry="3.6"/> <path d="M13 16.5V11h4.5a3 3 0 0 1 3 3v2"/> <path d="M4 24h40"/> <rect x="8" y="24" width="32" height="16" rx="1.6"/> <path d="M24 24v16"/> <path d="M13.5 31.5h5M29.5 31.5h5"/> <circle cx="34" cy="13" r="6.5"/>
   </g>
-  <g font-family="Manrope, 'Trebuchet MS', Arial, sans-serif" fill="#e7e3dc">
+  <g font-family="Manrope, 'Trebuchet MS', Arial, sans-serif" fill="#f2efea">
     <text x="600" y="735" font-size="46" font-weight="700" text-anchor="middle" letter-spacing="1">Мебель для ванной</text>
     <text x="600" y="790" font-size="28" font-weight="500" text-anchor="middle" opacity="0.72">проект 03 · место для фото</text>
   </g>

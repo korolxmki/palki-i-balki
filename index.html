@@ -3,93 +3,694 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Палки и Балки — ателье мебели на заказ в Москве</title>
-<meta name="description" content="Кухни, шкафы-купе, гардеробные, детская мебель, мебель для ванной, прихожие, гостиные и офисная мебель на заказ в Москве. Бесплатный замер, договор, гарантия.">
-<meta name="theme-color" content="#e6e4e0">
+<title>Палки и Балки — кухни и мебель на заказ в Москве</title>
+<meta name="description" content="Ателье мебели «Палки и Балки»: кухни, шкафы, гардеробные и мебель на заказ в Москве. Своё производство, замер, дизайн-проект и монтаж.">
+<meta name="theme-color" content="#1E1C1A">
 <link rel="canonical" href="https://palki-i-balki.ru/">
 <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Палки и Балки — ателье мебели на заказ в Москве">
-<meta property="og:description" content="Мебель на заказ под любой запрос: от кухни до офиса. Бесплатный замер по Москве и области.">
-<meta property="og:image" content="img/og.svg">
-<meta property="og:url" content="https://palki-i-balki.ru/">
+<meta property="og:title" content="Палки и Балки — кухни и мебель на заказ">
+<meta property="og:description" content="Кухни, в которые хочется возвращаться. Мебель на заказ в Москве.">
+<meta property="og:image" content="img/hero-bg.jpg">
 <meta name="format-detection" content="telephone=no">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   Палки и Балки — премиальный тёмный лендинг. Один файл.
+   Палитра: графит #1E1C1A · светлый #E8E7E5 · greige #B8AD9F · дерево #5A3F33
+   ========================================================================== */
+
+:root {
+  --graphite: #1e1c1a;
+  --graphite-2: #262320;
+  --canvas: #141312;
+  --light: #e8e7e5;
+  --light-2: #dedbd6;
+  --greige: #b8ad9f;
+  --wood: #5a3f33;
+  --ink: #1a1a1a;
+  --cream: #f2efea;
+  --cream-dim: rgba(242, 239, 234, 0.62);
+  --ink-dim: rgba(26, 26, 26, 0.6);
+  --hair-dark: rgba(242, 239, 234, 0.14);
+  --hair-light: rgba(26, 26, 26, 0.12);
+
+  --r-lg: 40px;
+  --r: 28px;
+  --r-sm: 16px;
+  --pill: 999px;
+
+  --pad: clamp(16px, 3.4vw, 40px);
+  --gap: clamp(10px, 1.1vw, 16px);
+  --sec: clamp(64px, 8vw, 132px);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --hero-zoom: 1;          /* общий масштаб слоёв героя, на телефоне больше */
+
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--canvas);
+  color: var(--cream);
+  font-family: Manrope, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: clamp(14px, 0.95vw, 16px);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+body.is-locked { overflow: hidden; }
+
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, select, textarea { font: inherit; color: inherit; }
+h1, h2, h3, h4, p, figure, ul, ol, dl, dd { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 4px; }
+::selection { background: var(--greige); color: var(--graphite); }
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.vh {
+  position: absolute !important; width: 1px; height: 1px;
+  margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.wrap { width: min(1360px, 100%); margin-inline: auto; padding-inline: clamp(18px, 3vw, 56px); }
+
+.icon {
+  width: 1em; height: 1em; flex: none;
+  fill: none; stroke: currentColor; stroke-width: 1.5;
+  stroke-linecap: round; stroke-linejoin: round;
+}
+.icon--fill { fill: currentColor; stroke: none; }
+
+/* ---------- Типографика ---------- */
+.label {
+  font-size: clamp(10px, 0.72vw, 12px);
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+.label--dim { color: var(--greige); }
+
+.h2 {
+  font-size: clamp(28px, 3.6vw, 60px);
+  line-height: 1.04;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+.h3 {
+  font-size: clamp(18px, 1.5vw, 24px);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.p-dim { color: var(--cream-dim); max-width: 58ch; text-wrap: pretty; }
+.on-light .p-dim { color: var(--ink-dim); }
+
+.sec-head {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  gap: clamp(16px, 3vw, 48px);
+  margin-bottom: clamp(28px, 3.6vw, 56px);
+}
+.sec-head > div { max-width: 60ch; }
+.sec-head .label { display: block; margin-bottom: 16px; }
+.sec-head .p-dim { margin-top: 18px; }
+
+/* ---------- Кнопки ---------- */
+.btn {
+  --bg: var(--cream); --fg: var(--graphite);
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  padding: 18px 32px; min-height: 58px;
+  border: 1px solid transparent; border-radius: var(--pill);
+  background: var(--bg); color: var(--fg);
+  font-size: clamp(12px, 0.82vw, 13px); font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase; text-align: center;
+  cursor: pointer;
+  transition: transform 0.3s var(--ease), background 0.3s var(--ease),
+              color 0.3s var(--ease), border-color 0.3s var(--ease), opacity 0.3s var(--ease);
+}
+.btn:hover { transform: translateY(-2px); }
+.btn .icon { width: 1.25em; height: 1.25em; }
+.btn--dark { --bg: var(--graphite); --fg: var(--cream); }
+.btn--ghost { --bg: transparent; --fg: var(--cream); border-color: var(--hair-dark); }
+.btn--ghost:hover { border-color: var(--cream); background: rgba(242, 239, 234, 0.08); }
+.btn--ghost-ink { --bg: transparent; --fg: var(--ink); border-color: var(--hair-light); }
+.btn--ghost-ink:hover { border-color: var(--ink); background: rgba(26, 26, 26, 0.05); }
+.btn--sm { min-height: 48px; padding: 13px 24px; }
+.btn--wide { width: 100%; }
+.btn[disabled] { opacity: 0.45; cursor: not-allowed; transform: none; }
+
+.ibtn {
+  display: inline-grid; place-items: center;
+  width: 42px; height: 42px;
+  border: 1px solid var(--hair-light); border-radius: 50%;
+  background: transparent; color: inherit; cursor: pointer;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.ibtn .icon { width: 17px; height: 17px; }
+.ibtn:hover { background: var(--ink); color: var(--light); border-color: var(--ink); }
+.ibtn--dark { border-color: var(--hair-dark); }
+.ibtn--dark:hover { background: var(--cream); color: var(--graphite); border-color: var(--cream); }
+
+.arrow-link {
+  display: inline-flex; align-items: center; gap: 12px;
+  font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  padding-bottom: 6px; border-bottom: 1px solid currentColor;
+  transition: gap 0.3s var(--ease);
+}
+.arrow-link .icon { width: 15px; height: 15px; }
+.arrow-link:hover { gap: 18px; }
+
+/* ---------- Шапка ---------- */
+.head {
+  position: fixed; z-index: 60;
+  inset: clamp(10px, 1.4vw, 18px) clamp(10px, 2vw, 24px) auto;
+  display: flex; align-items: center; gap: clamp(10px, 1.6vw, 26px);
+  padding: 10px 10px 10px clamp(16px, 1.8vw, 26px);
+  border-radius: var(--pill);
+  background: rgba(232, 231, 229, 0.82);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: var(--ink);
+  transition: transform 0.45s var(--ease), background 0.45s var(--ease);
+}
+.head.is-hidden { transform: translateY(calc(-100% - 24px)); }
+.logo { display: flex; align-items: baseline; gap: 10px; flex: none; }
+.logo b {
+  font-size: clamp(14px, 1.05vw, 17px); font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; white-space: nowrap;
+}
+.logo span { font-size: 10px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-dim); white-space: nowrap; }
+.head__place {
+  display: flex; align-items: center; gap: 8px;
+  padding-left: clamp(10px, 1.6vw, 22px); border-left: 1px solid var(--hair-light);
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+  line-height: 1.3; color: var(--ink-dim);
+}
+.head__place .icon { width: 14px; height: 14px; }
+.head__side { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.head__tel { font-size: clamp(12px, 0.95vw, 14px); font-weight: 700; letter-spacing: 0.02em; white-space: nowrap; }
+.head__tel:hover { color: var(--ink-dim); }
+.menu-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 12px 20px; border: 0; border-radius: var(--pill);
+  background: var(--graphite); color: var(--cream);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase;
+  cursor: pointer; transition: background 0.3s var(--ease);
+}
+.menu-btn .icon { width: 16px; height: 16px; }
+.menu-btn:hover { background: var(--wood); }
+
+/* ---------- Меню ---------- */
+.menu {
+  position: fixed; inset: 0; z-index: 80;
+  display: grid; grid-template-rows: auto 1fr;
+  background: var(--graphite);
+  opacity: 0; visibility: hidden; transform: translateY(-1.5%);
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0.4s;
+}
+.menu[data-open="true"] { opacity: 1; visibility: visible; transform: none; }
+.menu__top {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 84px; border-bottom: 1px solid var(--hair-dark);
+}
+.menu__top b { font-size: 15px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.menu__body {
+  display: grid; grid-template-columns: 1.5fr 1fr; gap: clamp(24px, 5vw, 80px);
+  align-content: start; padding-block: clamp(28px, 5vw, 70px); overflow-y: auto;
+}
+.menu__link {
+  display: flex; align-items: baseline; gap: 18px;
+  font-size: clamp(28px, 4.6vw, 64px); font-weight: 300; letter-spacing: -0.03em; line-height: 1.12;
+  transition: color 0.3s var(--ease), padding-left 0.3s var(--ease);
+}
+.menu__link i { font-size: 11px; font-style: normal; font-weight: 700; letter-spacing: 0.16em; color: var(--greige); }
+.menu__link:hover { color: var(--greige); padding-left: 14px; }
+.menu__aside { display: grid; gap: 24px; align-content: start; }
+.menu__aside b { display: block; font-size: clamp(18px, 1.7vw, 26px); font-weight: 600; letter-spacing: -0.01em; }
+.menu__aside p { color: var(--cream-dim); }
+.menu__aside .label { display: block; margin-bottom: 8px; color: var(--greige); }
+
+/* ================= ГЛАВНЫЙ ЭКРАН ================= */
+.hero {
+  position: relative;
+  height: 100svh; min-height: 600px;
+  overflow: hidden;
+  background: var(--graphite);
+  isolation: isolate;
+}
+@supports not (height: 100svh) { .hero { height: 100vh; } }
+
+.hero__layer { position: absolute; inset: 0; width: 100%; height: 100%; }
+.hero__bg, .hero__front {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: 50% 55%;      /* одинаково у обоих слоёв — иначе разъедутся */
+  will-change: transform;
+}
+.hero__bg, .hero__front { transform-origin: 50% 100%; transform: scale(var(--hero-zoom)); }
+.hero__bg { filter: brightness(0.62) contrast(1.06) saturate(0.92); }
+.hero__front { z-index: 3; filter: brightness(0.86) contrast(1.04); }
+
+.hero__veil {
+  position: absolute; inset: 0; z-index: 4; pointer-events: none;
+  background:
+    linear-gradient(to top, rgba(12, 11, 10, 0.92) 0%, rgba(12, 11, 10, 0.35) 26%, rgba(12, 11, 10, 0) 52%),
+    linear-gradient(to bottom, rgba(12, 11, 10, 0.55) 0%, rgba(12, 11, 10, 0) 34%),
+    radial-gradient(120% 80% at 70% 40%, rgba(90, 63, 51, 0.16), transparent 70%);
+}
+
+/* Надпись — стоит ЗА кухней (z-index 2 против 3 у переднего плана) */
+.hero__type {
+  position: absolute; z-index: 2; left: 0; right: 0;
+  top: 50%; transform: translateY(-52%);
+  display: grid; justify-items: center; gap: 0;
+  text-align: center; pointer-events: none;
+  will-change: transform, opacity;
+}
+.hero__word {
+  display: flex; align-items: baseline; justify-content: center;
+  font-size: clamp(64px, 16vw, 268px);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 0.86;
+  color: rgba(242, 239, 234, 0.9);
+  white-space: nowrap;
+  will-change: transform;
+}
+.hero__word em {
+  font-style: normal; font-weight: 300;
+  font-size: 0.26em; letter-spacing: 0.02em;
+  margin-right: 0.12em; transform: translateY(-0.18em);
+  color: rgba(242, 239, 234, 0.72);
+}
+.hero__ch { display: inline-block; will-change: transform, opacity; }
+/* Подпись стоит ПОВЕРХ кухни (z-index 5), иначе её съедает столешница */
+.hero__sub {
+  position: absolute; z-index: 5; left: 0; right: 0;
+  top: 64%;
+  text-align: center;
+  font-size: clamp(10px, 0.78vw, 13px);
+  font-weight: 500; letter-spacing: 0.46em; text-transform: uppercase;
+  color: rgba(242, 239, 234, 0.82);
+  padding-left: 0.46em;
+  pointer-events: none;
+}
+
+.hero__tag {
+  position: absolute; z-index: 5; top: clamp(78px, 9vw, 116px); left: 0; right: 0;
+  display: flex; justify-content: center;
+  color: rgba(242, 239, 234, 0.66);
+}
+.hero__tag span { display: inline-flex; gap: 12px; align-items: center; }
+.hero__tag i { font-style: normal; opacity: 0.5; }
+
+.hero__ui {
+  position: absolute; z-index: 6; inset: auto 0 clamp(22px, 3.2vw, 44px);
+  display: flex; align-items: flex-end; justify-content: space-between;
+  gap: clamp(18px, 4vw, 60px);
+}
+.hero__note { max-width: 40ch; color: rgba(242, 239, 234, 0.78); font-size: clamp(13px, 1vw, 16px); line-height: 1.55; }
+.hero__note b { display: block; font-weight: 600; color: var(--cream); margin-bottom: 6px; }
+
+
+/* ================= СЕКЦИИ-КАРТОЧКИ ================= */
+.card-sec {
+  position: relative; z-index: 5;
+  margin: var(--gap) var(--pad) 0;
+  padding: var(--sec) 0;
+  border-radius: var(--r-lg);
+  background: var(--graphite);
+}
+.card-sec--light { background: var(--light); color: var(--ink); }
+.card-sec--first { margin-top: calc(var(--r-lg) * -1); }
+.card-sec--flush { padding-block: clamp(40px, 5vw, 80px); }
+.on-light { color: var(--ink); }
+.on-light .label--dim { color: var(--wood); }
+
+/* О компании */
+.about { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: var(--gap); }
+.about__card {
+  display: grid; align-content: space-between; gap: clamp(26px, 3vw, 44px);
+  padding: clamp(24px, 2.6vw, 42px);
+  background: var(--graphite-2); border: 1px solid var(--hair-dark); border-radius: var(--r);
+}
+.about__stats { display: grid; gap: 10px; }
+.stat {
+  display: flex; align-items: center; gap: 14px;
+  padding: 10px; padding-right: 22px;
+  background: rgba(242, 239, 234, 0.05); border-radius: var(--pill);
+}
+.stat img { width: 58px; height: 58px; border-radius: var(--pill); object-fit: cover; flex: none; }
+.stat b { display: block; font-size: clamp(16px, 1.3vw, 20px); font-weight: 700; letter-spacing: -0.01em; line-height: 1.15; }
+.stat i { font-style: normal; font-size: 12px; color: var(--greige); }
+.about__photo { border-radius: var(--r); overflow: hidden; min-height: clamp(320px, 42vw, 620px); background: var(--graphite-2); }
+.about__photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Преимущества */
+.feats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--gap); }
+.feat {
+  display: grid; align-content: space-between; gap: 18px;
+  min-height: 260px; padding: clamp(22px, 2.2vw, 34px);
+  background: var(--graphite-2); border: 1px solid var(--hair-dark); border-radius: var(--r);
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease);
+}
+.feat:hover { background: #2c2724; border-color: rgba(184, 173, 159, 0.4); }
+.feat .icon { width: 30px; height: 30px; color: var(--greige); }
+.feat h3 { font-size: clamp(17px, 1.35vw, 22px); font-weight: 700; letter-spacing: -0.02em; }
+.feat p { color: var(--cream-dim); font-size: clamp(13px, 0.95vw, 15px); }
+
+/* Направления */
+.dirs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); }
+.dir {
+  display: flex; flex-direction: column; gap: 16px;
+  padding: clamp(18px, 1.8vw, 26px); min-height: 150px;
+  background: transparent; border: 1px solid var(--hair-light); border-radius: var(--r);
+  color: var(--ink); text-align: left; cursor: pointer;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.dir .icon { width: clamp(28px, 2.4vw, 34px); height: clamp(28px, 2.4vw, 34px); color: var(--wood); transition: color 0.3s var(--ease); }
+.dir b { margin-top: auto; font-size: clamp(14px, 1.1vw, 17px); font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+.dir i { font-style: normal; font-size: 12px; font-weight: 600; color: var(--ink-dim); transition: color 0.3s var(--ease); }
+.dir:hover { background: var(--graphite); color: var(--cream); border-color: var(--graphite); transform: translateY(-3px); }
+.dir:hover .icon { color: var(--greige); }
+.dir:hover i { color: var(--greige); }
+
+/* Портфолио — горизонтальная галерея */
+.gallery {
+  display: flex; gap: var(--gap);
+  padding-inline: clamp(18px, 3vw, 56px);
+  overflow-x: auto; scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.gallery::-webkit-scrollbar { display: none; }
+.gallery figure {
+  position: relative; flex: none; scroll-snap-align: center;
+  border-radius: var(--r); overflow: hidden; background: var(--graphite-2);
+}
+.gallery img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+.gallery figure:hover img { transform: scale(1.04); }
+.gallery figcaption {
+  position: absolute; inset: auto 0 0; padding: 18px 20px;
+  background: linear-gradient(to top, rgba(12, 11, 10, 0.86), transparent);
+  font-size: 13px; font-weight: 600; color: var(--cream);
+}
+.gallery figcaption i { font-style: normal; display: block; font-size: 11px; font-weight: 500; color: var(--greige); }
+.g-1 { width: clamp(240px, 26vw, 400px); height: clamp(300px, 34vw, 520px); }
+.g-2 { width: clamp(200px, 21vw, 320px); height: clamp(240px, 27vw, 400px); align-self: flex-end; }
+.g-3 { width: clamp(280px, 32vw, 480px); height: clamp(340px, 40vw, 600px); }
+.g-mid {
+  flex: none; align-self: center; display: grid; gap: 10px; justify-items: center;
+  width: clamp(200px, 20vw, 300px); text-align: center;
+}
+.g-mid b { font-size: clamp(18px, 1.6vw, 26px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.15; }
+
+/* Блок с цифрой */
+.bignum { position: relative; border-radius: var(--r-lg); overflow: hidden; min-height: clamp(360px, 46vw, 640px); }
+.bignum img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.bignum::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(12, 11, 10, 0.92) 0%, rgba(12, 11, 10, 0.55) 45%, rgba(12, 11, 10, 0.18) 100%);
+}
+.bignum__body {
+  position: relative; z-index: 2;
+  display: grid; align-content: center; gap: 22px;
+  height: 100%; min-height: inherit; max-width: 46ch;
+  padding: clamp(28px, 4vw, 72px);
+}
+.bignum__n { font-size: clamp(48px, 7.4vw, 128px); font-weight: 200; letter-spacing: -0.045em; line-height: 0.92; }
+
+/* Коллекции */
+.collections { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--gap); }
+.coll {
+  display: grid; grid-template-rows: auto 1fr;
+  background: #fff; color: var(--ink); border-radius: var(--r); overflow: hidden;
+}
+.coll__media { aspect-ratio: 16 / 11; background: var(--light-2); overflow: hidden; }
+.coll__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+.coll:hover .coll__media img { transform: scale(1.03); }
+.coll__body { display: grid; gap: 18px; align-content: start; padding: clamp(20px, 2vw, 32px); }
+.coll__top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+.coll__top b { font-size: clamp(18px, 1.5vw, 24px); font-weight: 700; letter-spacing: -0.02em; }
+.coll__art { font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-dim); }
+.specs { display: grid; gap: 0; }
+.specs div {
+  display: flex; align-items: baseline; justify-content: space-between; gap: 16px;
+  padding: 11px 0; border-top: 1px solid var(--hair-light);
+  font-size: clamp(12px, 0.92vw, 14px);
+}
+.specs dt { color: var(--ink-dim); }
+.specs dd { font-weight: 600; text-align: right; }
+
+/* FAQ */
+.faq { display: grid; gap: 10px; }
+.faq__item { background: var(--graphite-2); border: 1px solid var(--hair-dark); border-radius: var(--r); overflow: hidden; }
+.faq__head {
+  display: flex; align-items: center; gap: 20px; width: 100%;
+  padding: clamp(20px, 2vw, 30px) clamp(20px, 2.2vw, 34px);
+  background: transparent; border: 0; text-align: left; cursor: pointer;
+  font-size: clamp(15px, 1.25vw, 21px); font-weight: 600; letter-spacing: -0.015em; color: var(--cream);
+}
+.faq__head span { flex: 1; }
+.faq__sign {
+  display: grid; place-items: center; width: 40px; height: 40px; flex: none;
+  border: 1px solid var(--hair-dark); border-radius: 50%;
+  transition: transform 0.4s var(--ease), background 0.3s var(--ease), color 0.3s var(--ease);
+}
+.faq__sign .icon { width: 16px; height: 16px; }
+.faq__head:hover .faq__sign { background: var(--cream); color: var(--graphite); }
+.faq__item.is-open .faq__sign { transform: rotate(45deg); background: var(--greige); color: var(--graphite); border-color: var(--greige); }
+.faq__panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.45s var(--ease); }
+.faq__item.is-open .faq__panel { grid-template-rows: 1fr; }
+.faq__panel > div { overflow: hidden; }
+.faq__panel p {
+  padding: 0 clamp(20px, 2.2vw, 34px) clamp(22px, 2.2vw, 30px) clamp(20px, 2.2vw, 34px);
+  max-width: 78ch; color: var(--cream-dim);
+}
+
+/* Лид-магнит и квиз */
+.lead { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(24px, 3vw, 56px); align-items: start; }
+.lead__aside { display: grid; gap: 22px; align-content: start; }
+.socket {
+  display: grid; place-items: center; width: 68px; height: 68px;
+  border-radius: 20px; background: rgba(184, 173, 159, 0.16); color: var(--greige);
+}
+.socket .icon { width: 32px; height: 32px; }
+.lead__list { display: grid; gap: 10px; }
+.lead__list li { display: grid; grid-template-columns: 18px 1fr; gap: 12px; color: var(--cream-dim); }
+.lead__list .icon { width: 16px; height: 16px; margin-top: 5px; color: var(--greige); }
+
+.quiz { display: grid; gap: clamp(20px, 2.2vw, 30px); }
+.qstep { display: grid; gap: 14px; }
+.qstep__t { display: flex; flex-wrap: wrap; align-items: baseline; gap: 14px; }
+.qstep__n { font-size: 11px; font-weight: 700; letter-spacing: 0.16em; color: var(--greige); white-space: nowrap; }
+.qstep__t b { font-size: clamp(15px, 1.2vw, 19px); font-weight: 600; letter-spacing: -0.015em; }
+.qstep__hint { font-size: 12px; color: var(--cream-dim); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip input { position: absolute; opacity: 0; width: 0; height: 0; }
+.chip span {
+  display: inline-flex; padding: 11px 18px;
+  border: 1px solid var(--hair-dark); border-radius: var(--pill);
+  font-size: clamp(12px, 0.92vw, 14px); font-weight: 500; cursor: pointer;
+  transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.chip span:hover { border-color: var(--greige); }
+.chip input:checked + span { background: var(--cream); color: var(--graphite); border-color: var(--cream); font-weight: 600; }
+.chip input:focus-visible + span { outline: 2px solid var(--greige); outline-offset: 3px; }
+
+.field { display: grid; gap: 8px; }
+.field label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--greige); }
+.field input {
+  padding: 15px 18px; background: transparent;
+  border: 1px solid var(--hair-dark); border-radius: var(--r-sm); color: var(--cream);
+  transition: border-color 0.25s var(--ease);
+}
+.field input::placeholder { color: rgba(242, 239, 234, 0.35); }
+.field input:focus { outline: none; border-color: var(--greige); }
+
+.quiz__foot { display: grid; gap: 14px; padding-top: 4px; border-top: 1px solid var(--hair-dark); }
+.preview {
+  padding: 15px 18px; border: 1px solid var(--hair-dark); border-radius: var(--r-sm);
+  background: rgba(242, 239, 234, 0.04); font-size: 13px; line-height: 1.7; color: var(--cream-dim);
+  white-space: pre-line;
+}
+.preview b { color: var(--cream); font-weight: 600; }
+.status { min-height: 1.2em; font-size: 13px; font-weight: 500; color: var(--greige); }
+.quiz__row { display: flex; flex-wrap: wrap; gap: 10px; }
+.quiz__row .btn { flex: 1 1 240px; }
+.fineprint { font-size: 11.5px; line-height: 1.55; color: rgba(242, 239, 234, 0.45); }
+.fineprint a { text-decoration: underline; text-underline-offset: 3px; }
+.copy-btn {
+  justify-self: start; padding: 0; border: 0; border-bottom: 1px solid var(--hair-dark);
+  background: none; color: var(--cream); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase; cursor: pointer;
+  transition: border-color 0.25s var(--ease);
+}
+.copy-btn:hover { border-color: var(--greige); }
+
+/* Контакты */
+.contacts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: var(--gap); }
+.contacts__card { display: grid; align-content: space-between; gap: 30px; padding: clamp(24px, 2.6vw, 42px); background: var(--graphite-2); border: 1px solid var(--hair-dark); border-radius: var(--r); }
+.contacts__rows { display: grid; gap: 22px; }
+.contacts__rows .label { display: block; margin-bottom: 6px; color: var(--greige); }
+.contacts__rows b { font-size: clamp(17px, 1.4vw, 23px); font-weight: 600; letter-spacing: -0.01em; }
+.contacts__rows p { color: var(--cream-dim); }
+.map {
+  position: relative; border-radius: var(--r); overflow: hidden; min-height: clamp(300px, 36vw, 520px);
+  background:
+    repeating-linear-gradient(0deg, rgba(242,239,234,0.05) 0 1px, transparent 1px 64px),
+    repeating-linear-gradient(90deg, rgba(242,239,234,0.05) 0 1px, transparent 1px 64px),
+    radial-gradient(90% 70% at 40% 35%, #2a2623, #181614);
+  border: 1px solid var(--hair-dark);
+  display: grid; place-items: center;
+}
+.map__road { position: absolute; inset: 0; opacity: 0.5; }
+.map__pin { position: relative; z-index: 2; display: grid; justify-items: center; gap: 14px; text-align: center; padding: 24px; }
+.map__dot {
+  display: grid; place-items: center; width: 58px; height: 58px; border-radius: 50%;
+  background: var(--cream); color: var(--graphite);
+}
+.map__dot .icon { width: 26px; height: 26px; }
+.map__pin b { font-size: clamp(16px, 1.3vw, 20px); font-weight: 600; }
+.map__pin span { color: var(--cream-dim); font-size: 13px; }
+
+/* Подвал */
+.foot { padding: clamp(46px, 5vw, 86px) 0 26px; }
+.foot__grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: clamp(24px, 3vw, 52px); padding-bottom: clamp(26px, 3vw, 46px); border-bottom: 1px solid var(--hair-dark); }
+.foot__brand { display: grid; gap: 16px; align-content: start; }
+.foot__brand p { color: var(--cream-dim); font-size: 13.5px; max-width: 36ch; }
+.foot h4 { margin-bottom: 16px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--greige); }
+.foot ul { display: grid; gap: 10px; }
+.foot a:hover { color: var(--greige); }
+.foot__socials { display: flex; gap: 10px; margin-top: 6px; }
+.foot__bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; padding-top: 22px; font-size: 11.5px; color: rgba(242, 239, 234, 0.4); }
+
+/* Мобильная панель */
+.bar {
+  position: fixed; inset: auto 0 0; z-index: 55; display: none; gap: 8px;
+  padding: 10px clamp(12px, 3vw, 20px) calc(10px + env(safe-area-inset-bottom));
+  background: rgba(20, 19, 18, 0.92); backdrop-filter: blur(14px);
+  border-top: 1px solid var(--hair-dark);
+}
+.bar .btn { flex: 1; min-height: 50px; padding-inline: 12px; }
+.bar { transform: translateY(120%); transition: transform 0.45s var(--ease); }
+.bar.is-in { transform: none; }
+.bar .ibtn { width: 50px; height: 50px; }
+
+/* Появление при скролле */
+.rise { opacity: 0; transform: translateY(30px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
+.rise.in { opacity: 1; transform: none; }
+
+/* ---------- Адаптив ---------- */
+@media (max-width: 1100px) {
+  .about, .lead, .contacts { grid-template-columns: 1fr; }
+  .feats, .collections { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dirs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .menu__body { grid-template-columns: 1fr; }
+  .foot__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .head__place { display: none; }
+}
+
+@media (max-width: 720px) {
+  :root { --r-lg: 28px; --r: 20px; --hero-zoom: 1.45; }
+  body { padding-bottom: 74px; }
+  .hero__word { font-size: clamp(54px, 20vw, 140px); }
+  .hero__sub { letter-spacing: 0.3em; }
+  .hero__ui { flex-direction: column; align-items: stretch; gap: 14px; bottom: 86px; }
+  .hero__tag { top: 104px; }
+  .hero__ui .btn { width: 100%; }
+  .hero__note { max-width: none; }
+  .feats, .collections, .dirs { grid-template-columns: 1fr; }
+  .dirs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .foot__grid { grid-template-columns: 1fr; }
+  .bar { display: flex; }
+  .head__tel { display: none; }
+  .menu-btn span { display: none; }
+  .menu-btn { padding: 12px; }
+  .logo span { display: none; }
+  .quiz__row .btn { flex: 1 1 100%; }
+  .card-sec { margin-inline: 10px; }
+  .g-2 { align-self: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important; animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  .rise { opacity: 1; transform: none; }
+  .hero__bg, .hero__front, .hero__type { transform: none !important; }
+}
+</style>
 </head>
 
-<!-- ВАЖНО: контакты меняются в двух местах — в data-атрибутах ниже (их читает квиз)
-     и в ссылках шапки/подвала. Подробности в README.md -->
-<body data-tg="palki_i_balki" data-wa="79990000000">
-<!--SPRITE:START--><svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0"><symbol id="i-kitchen" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="17" height="11" rx="1.6"/> <path d="M27 18 L29.5 7 H38.5 L41 18 Z"/> <path d="M4 25h40"/> <rect x="6" y="25" width="36" height="16" rx="1.6"/> <path d="M24 25v16"/> <path d="M11.5 12.5h4M11.5 32h5M31.5 32h5"/></symbol><symbol id="i-wardrobe" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="6" width="34" height="36" rx="2"/> <path d="M7 11.5h34"/> <path d="M24 11.5V42"/> <path d="M19.5 22v6M28.5 22v6"/></symbol><symbol id="i-dressing" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="36" height="36" rx="2"/> <path d="M24 6v36"/> <path d="M6 16.5h18M6 26h18M6 35h18"/> <path d="M27 14h12"/> <path d="M31 14v3.5M31 17.5l-2.6 4.2h5.2zM36 14v3.5M36 17.5l-2.6 4.2h5.2z"/></symbol><symbol id="i-kids" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 43V9M39 43V9"/> <path d="M9 23h30M9 37h30"/> <path d="M9 17.5h30"/> <path d="M16.5 23v-5.5M24 23v-5.5M31.5 23v-5.5"/> <path d="M9 30h6"/></symbol><symbol id="i-bath" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="17" cy="20" rx="8.5" ry="3.6"/> <path d="M13 16.5V11h4.5a3 3 0 0 1 3 3v2"/> <path d="M4 24h40"/> <rect x="8" y="24" width="32" height="16" rx="1.6"/> <path d="M24 24v16"/> <path d="M13.5 31.5h5M29.5 31.5h5"/> <circle cx="34" cy="13" r="6.5"/></symbol><symbol id="i-hallway" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="13" height="32" rx="1.6"/> <path d="M15.5 19v5"/> <path d="M24 12h18"/> <path d="M28 12v4.5M34 12v4.5M40 12v4.5"/> <path d="M24 31h18M27 31v7M39 31v7"/></symbol><symbol id="i-living" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="7" width="32" height="20" rx="2"/> <path d="M20 27h8"/> <rect x="5" y="31" width="38" height="11" rx="2"/> <path d="M24 31v11"/> <path d="M11.5 36.5h5M31.5 36.5h5"/></symbol><symbol id="i-office" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="6" width="24" height="12" rx="1.6"/> <path d="M24 6v12"/> <path d="M4 24h40"/> <path d="M9 24v18M39 24v18"/> <rect x="14" y="28" width="16" height="12" rx="1.6"/> <path d="M14 34h16"/></symbol><symbol id="i-measure" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/> <circle cx="24" cy="24" r="6"/> <path d="M28.5 28.5 41 41"/> <path d="M24 7v4M24 37v4M7 24h4M37 24h4"/></symbol><symbol id="i-sketch" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40h32"/> <path d="M12 33 32 13l4 4-20 20z"/> <path d="M12 33l-1.5 5.5L16 37"/> <path d="M29 10l3-3 4 4-3 3"/></symbol><symbol id="i-factory" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 41V20l11 7V20l11 7V12l14 9v20z"/> <path d="M6 41h36"/> <path d="M31 30v5M22 32v3M13 32v3"/></symbol><symbol id="i-install" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M30 8a8 8 0 0 0-10.4 10.4L8.5 29.5a3.5 3.5 0 0 0 5 5l11.1-11.1A8 8 0 0 0 35 13z"/> <path d="M11.5 32.5h.02"/></symbol><symbol id="i-arrow" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 24h28M27 13l11 11-11 11"/></symbol><symbol id="i-plus" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 12v24M12 24h24"/></symbol><symbol id="i-check" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 25l9 9 19-20"/></symbol><symbol id="i-star" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6l5.4 11.6 12.6 1.6-9.3 8.7 2.4 12.5L24 34.3 12.9 40.4l2.4-12.5L6 19.2l12.6-1.6z"/></symbol><symbol id="i-quote" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12c-6 2-10 7-10 14v10h13V24h-7c0-4 2-7 6-8z"/> <path d="M41 12c-6 2-10 7-10 14v10h13V24h-7c0-4 2-7 6-8z"/></symbol><symbol id="i-pin" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 43s13-12.3 13-22a13 13 0 1 0-26 0c0 9.7 13 22 13 22z"/> <circle cx="24" cy="21" r="5"/></symbol><symbol id="i-phone" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.6 8.5 21 16l-4 3.5a24 24 0 0 0 11.5 11.5L32 27l7.5 3.4v7.4c0 1.8-1.5 3.3-3.3 3.1C20 39.6 8.4 28 7.1 11.8 7 10 8.4 8.5 10.2 8.5z"/></symbol><symbol id="i-clock" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M24 13v11l7 5"/></symbol><symbol id="i-shield" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5 8 11v13c0 10 7 16.6 16 19 9-2.4 16-9 16-19V11z"/><path d="M17 24l5 5 10-11"/></symbol><symbol id="i-ruler" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="16" width="40" height="16" rx="2" transform="rotate(-8 24 24)"/> <path d="M13 19.5v5M20 18.5v7M27 17.5v5M34 16.5v7"/></symbol><symbol id="i-layers" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 5 16l19 10 19-10z"/><path d="M5 26l19 10 19-10"/><path d="M5 34l19 8 19-8"/></symbol><symbol id="i-menu" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16h34M7 24h34M7 32h34"/></symbol><symbol id="i-close" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12l24 24M36 12L12 36"/></symbol><symbol id="i-chevron" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l12 12 12-12"/></symbol><symbol id="i-tg" viewBox="0 0 24 24" fill="currentColor"><path d="M9.04 15.47 8.7 19.9c.5 0 .72-.21.98-.47l2.36-2.24 4.9 3.57c.9.5 1.55.24 1.78-.83l3.23-15.1c.29-1.32-.48-1.84-1.35-1.52L1.6 9.53C.31 10.03.33 10.75 1.38 11.06l4.9 1.53L17.66 5.4c.53-.34 1.02-.15.62.19z"/></symbol><symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.86 1.22 3.06c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.75-.71 2-1.4.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23z"/></symbol></svg><!--SPRITE:END-->
-
-<a class="visually-hidden" href="#main">Перейти к содержанию</a>
+<!-- ЗАМЕНИТЕ: телефон и адрес — заглушки. Telegram уже ваш: @PR0_XBOCT -->
+<body data-tg="PR0_XBOCT">
+<!--SPRITE:START--><svg class="sprite" aria-hidden="true" focusable="false" width="0" height="0"><symbol id="i-kitchen" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="17" height="11" rx="1.6"/> <path d="M27 18 L29.5 7 H38.5 L41 18 Z"/> <path d="M4 25h40"/> <rect x="6" y="25" width="36" height="16" rx="1.6"/> <path d="M24 25v16"/> <path d="M11.5 12.5h4M11.5 32h5M31.5 32h5"/></symbol><symbol id="i-wardrobe" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="6" width="34" height="36" rx="2"/> <path d="M7 11.5h34"/> <path d="M24 11.5V42"/> <path d="M19.5 22v6M28.5 22v6"/></symbol><symbol id="i-dressing" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="36" height="36" rx="2"/> <path d="M24 6v36"/> <path d="M6 16.5h18M6 26h18M6 35h18"/> <path d="M27 14h12"/> <path d="M31 14v3.5M31 17.5l-2.6 4.2h5.2zM36 14v3.5M36 17.5l-2.6 4.2h5.2z"/></symbol><symbol id="i-kids" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 43V9M39 43V9"/> <path d="M9 23h30M9 37h30"/> <path d="M9 17.5h30"/> <path d="M16.5 23v-5.5M24 23v-5.5M31.5 23v-5.5"/> <path d="M9 30h6"/></symbol><symbol id="i-bath" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="17" cy="20" rx="8.5" ry="3.6"/> <path d="M13 16.5V11h4.5a3 3 0 0 1 3 3v2"/> <path d="M4 24h40"/> <rect x="8" y="24" width="32" height="16" rx="1.6"/> <path d="M24 24v16"/> <path d="M13.5 31.5h5M29.5 31.5h5"/> <circle cx="34" cy="13" r="6.5"/></symbol><symbol id="i-hallway" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="6" width="13" height="32" rx="1.6"/> <path d="M15.5 19v5"/> <path d="M24 12h18"/> <path d="M28 12v4.5M34 12v4.5M40 12v4.5"/> <path d="M24 31h18M27 31v7M39 31v7"/></symbol><symbol id="i-living" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="7" width="32" height="20" rx="2"/> <path d="M20 27h8"/> <rect x="5" y="31" width="38" height="11" rx="2"/> <path d="M24 31v11"/> <path d="M11.5 36.5h5M31.5 36.5h5"/></symbol><symbol id="i-office" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="12" y="6" width="24" height="12" rx="1.6"/> <path d="M24 6v12"/> <path d="M4 24h40"/> <path d="M9 24v18M39 24v18"/> <rect x="14" y="28" width="16" height="12" rx="1.6"/> <path d="M14 34h16"/></symbol><symbol id="i-measure" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/> <circle cx="24" cy="24" r="6"/> <path d="M28.5 28.5 41 41"/> <path d="M24 7v4M24 37v4M7 24h4M37 24h4"/></symbol><symbol id="i-sketch" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 40h32"/> <path d="M12 33 32 13l4 4-20 20z"/> <path d="M12 33l-1.5 5.5L16 37"/> <path d="M29 10l3-3 4 4-3 3"/></symbol><symbol id="i-factory" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 41V20l11 7V20l11 7V12l14 9v20z"/> <path d="M6 41h36"/> <path d="M31 30v5M22 32v3M13 32v3"/></symbol><symbol id="i-install" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M30 8a8 8 0 0 0-10.4 10.4L8.5 29.5a3.5 3.5 0 0 0 5 5l11.1-11.1A8 8 0 0 0 35 13z"/> <path d="M11.5 32.5h.02"/></symbol><symbol id="i-arrow" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 24h28M27 13l11 11-11 11"/></symbol><symbol id="i-plus" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 12v24M12 24h24"/></symbol><symbol id="i-check" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 25l9 9 19-20"/></symbol><symbol id="i-star" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6l5.4 11.6 12.6 1.6-9.3 8.7 2.4 12.5L24 34.3 12.9 40.4l2.4-12.5L6 19.2l12.6-1.6z"/></symbol><symbol id="i-quote" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12c-6 2-10 7-10 14v10h13V24h-7c0-4 2-7 6-8z"/> <path d="M41 12c-6 2-10 7-10 14v10h13V24h-7c0-4 2-7 6-8z"/></symbol><symbol id="i-pin" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 43s13-12.3 13-22a13 13 0 1 0-26 0c0 9.7 13 22 13 22z"/> <circle cx="24" cy="21" r="5"/></symbol><symbol id="i-phone" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.6 8.5 21 16l-4 3.5a24 24 0 0 0 11.5 11.5L32 27l7.5 3.4v7.4c0 1.8-1.5 3.3-3.3 3.1C20 39.6 8.4 28 7.1 11.8 7 10 8.4 8.5 10.2 8.5z"/></symbol><symbol id="i-clock" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M24 13v11l7 5"/></symbol><symbol id="i-shield" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 5 8 11v13c0 10 7 16.6 16 19 9-2.4 16-9 16-19V11z"/><path d="M17 24l5 5 10-11"/></symbol><symbol id="i-ruler" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="16" width="40" height="16" rx="2" transform="rotate(-8 24 24)"/> <path d="M13 19.5v5M20 18.5v7M27 17.5v5M34 16.5v7"/></symbol><symbol id="i-layers" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 6 5 16l19 10 19-10z"/><path d="M5 26l19 10 19-10"/><path d="M5 34l19 8 19-8"/></symbol><symbol id="i-menu" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 16h34M7 24h34M7 32h34"/></symbol><symbol id="i-chat" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 7c-9.9 0-18 6.5-18 14.5 0 4.6 2.7 8.7 6.9 11.4L11 42l8.8-4.6c1.3.3 2.8.5 4.2.5 9.9 0 18-6.5 18-14.4S33.9 7 24 7z"/> <path d="M17 21h14M17 27h9"/></symbol><symbol id="i-doc" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 6h14l8 8v28H13z"/> <path d="M27 6v8h8"/> <path d="M19 26h12M19 33h12M19 19h5"/></symbol><symbol id="i-light" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 33a11 11 0 1 1 14 0c-1.6 1.3-2.4 2.6-2.5 4.5h-9c-.1-1.9-.9-3.2-2.5-4.5z"/> <path d="M19.5 42h9"/> <path d="M24 4v4M8 20h4M36 20h4M12 8l3 3M36 8l-3 3"/></symbol><symbol id="i-socket" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="7" width="34" height="34" rx="8"/> <circle cx="24" cy="24" r="10"/> <path d="M20 21v4M28 21v4"/></symbol><symbol id="i-close" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 12l24 24M36 12L12 36"/></symbol><symbol id="i-chevron" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l12 12 12-12"/></symbol><symbol id="i-tg" viewBox="0 0 24 24" fill="currentColor"><path d="M9.04 15.47 8.7 19.9c.5 0 .72-.21.98-.47l2.36-2.24 4.9 3.57c.9.5 1.55.24 1.78-.83l3.23-15.1c.29-1.32-.48-1.84-1.35-1.52L1.6 9.53C.31 10.03.33 10.75 1.38 11.06l4.9 1.53L17.66 5.4c.53-.34 1.02-.15.62.19z"/></symbol><symbol id="i-wa" viewBox="0 0 24 24" fill="currentColor"><path d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.94 1.16-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.05-.17-.3-.02-.46.13-.6.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.07-.15-.67-1.6-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.47s1.07 2.86 1.22 3.06c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.23 1.36.2 1.87.12.57-.08 1.75-.71 2-1.4.25-.7.25-1.29.17-1.41-.07-.12-.27-.2-.57-.35z"/><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.87 9.87 0 0 0 4.79 1.22c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 18.15a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.04-.2-.31a8.17 8.17 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c0 4.54-3.7 8.23-8.24 8.23z"/></symbol></svg><!--SPRITE:END-->
+<a class="vh" href="#main">Перейти к содержанию</a>
 
 <!-- ======================= ШАПКА ======================= -->
-<header class="header">
-  <div class="container header__inner">
-    <a class="logo" href="/" aria-label="Палки и Балки — на главную">
-      <span class="logo__mark">Палки&nbsp;и&nbsp;Балки</span>
-      <span class="logo__sub">ателье мебели</span>
+<header class="head" id="head">
+  <a class="logo" href="#hero" aria-label="Палки и Балки — наверх">
+    <b>Палки и Балки</b><span>ателье мебели</span>
+  </a>
+  <div class="head__place">
+    <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
+    <span>Москва<br>и область</span>
+  </div>
+  <div class="head__side">
+    <a class="head__tel" href="tel:+79990000000">+7 (999) 000-00-00</a>
+    <a class="ibtn" href="https://t.me/PR0_XBOCT" target="_blank" rel="noopener" aria-label="Telegram">
+      <svg class="icon icon--fill" aria-hidden="true"><use href="#i-tg"></use></svg>
     </a>
-    <div class="header__place">
-      <svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg>
-      <span>Москва<br>и область</span>
-    </div>
-    <div class="header__side">
-      <a class="header__phone" href="tel:+79990000000">+7 (999) 000-00-00</a>
-      <a class="btn-icon" href="https://t.me/palki_i_balki" target="_blank" rel="noopener" aria-label="Telegram">
-        <svg class="icon icon--brand" aria-hidden="true"><use href="#i-tg"></use></svg>
-      </a>
-      <a class="btn-icon" href="https://wa.me/79990000000" target="_blank" rel="noopener" aria-label="WhatsApp">
-        <svg class="icon icon--brand" aria-hidden="true"><use href="#i-wa"></use></svg>
-      </a>
-      <button class="menu-toggle" type="button" data-menu-open aria-expanded="false" aria-controls="menu">
-        <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg>
-        <span>Меню</span>
-      </button>
-    </div>
+    <button class="menu-btn" type="button" data-menu-open aria-expanded="false" aria-controls="menu">
+      <svg class="icon" aria-hidden="true"><use href="#i-menu"></use></svg><span>Меню</span>
+    </button>
   </div>
 </header>
 
 <!-- ======================= МЕНЮ ======================= -->
 <div class="menu" id="menu" data-open="false" hidden>
-  <div class="container menu__top">
-    <span class="logo__mark">Палки и Балки</span>
-    <button class="btn-icon" type="button" data-menu-close aria-label="Закрыть меню">
+  <div class="wrap menu__top">
+    <b>Палки и Балки</b>
+    <button class="ibtn ibtn--dark" type="button" data-menu-close aria-label="Закрыть меню">
       <svg class="icon" aria-hidden="true"><use href="#i-close"></use></svg>
     </button>
   </div>
-  <div class="container menu__body">
-    <nav class="menu__list" aria-label="Основная навигация">
-      <a class="menu__link" href="#napravleniya" data-menu-link>Направления <span>01</span></a>
-      <a class="menu__link" href="portfolio.html">Портфолио <span>02</span></a>
-      <a class="menu__link" href="#process" data-menu-link>Как работаем <span>03</span></a>
-      <a class="menu__link" href="#otzyvy" data-menu-link>Отзывы <span>04</span></a>
-      <a class="menu__link" href="#zayavka" data-menu-link>Рассчитать <span>05</span></a>
-      <a class="menu__link" href="#kontakty" data-menu-link>Контакты <span>06</span></a>
+  <div class="wrap menu__body">
+    <nav aria-label="Основная навигация">
+      <a class="menu__link" href="#about" data-menu-link>О компании <i>01</i></a>
+      <a class="menu__link" href="#napravleniya" data-menu-link>Направления <i>02</i></a>
+      <a class="menu__link" href="#portfolio" data-menu-link>Портфолио <i>03</i></a>
+      <a class="menu__link" href="#collections" data-menu-link>Коллекции <i>04</i></a>
+      <a class="menu__link" href="#faq" data-menu-link>Вопросы <i>05</i></a>
+      <a class="menu__link" href="#plan" data-menu-link>Получить план <i>06</i></a>
+      <a class="menu__link" href="#contacts" data-menu-link>Контакты <i>07</i></a>
     </nav>
     <div class="menu__aside">
       <div>
-        <div class="menu__label">Телефон</div>
-        <a class="menu__big" href="tel:+79990000000">+7 (999) 000-00-00</a>
+        <span class="label">Телефон</span>
+        <b><a href="tel:+79990000000">+7 (999) 000-00-00</a></b>
       </div>
       <div>
-        <div class="menu__label">Шоурум и производство</div>
+        <span class="label">Telegram</span>
+        <b><a href="https://t.me/PR0_XBOCT" target="_blank" rel="noopener">@PR0_XBOCT</a></b>
+      </div>
+      <div>
+        <span class="label">Шоурум и производство</span>
         <p>Москва, ул. Складочная, 1с1<br>Пн–Сб, 10:00–20:00 · по записи</p>
-      </div>
-      <div>
-        <div class="menu__label">Мессенджеры</div>
-        <div class="menu__socials">
-          <a class="btn-icon" href="https://t.me/palki_i_balki" target="_blank" rel="noopener" aria-label="Telegram">
-            <svg class="icon icon--brand" aria-hidden="true"><use href="#i-tg"></use></svg>
-          </a>
-          <a class="btn-icon" href="https://wa.me/79990000000" target="_blank" rel="noopener" aria-label="WhatsApp">
-            <svg class="icon icon--brand" aria-hidden="true"><use href="#i-wa"></use></svg>
-          </a>
-        </div>
       </div>
     </div>
   </div>
@@ -98,865 +699,489 @@
 <main id="main">
 
 <!-- ======================= ГЛАВНЫЙ ЭКРАН ======================= -->
-<section class="hero container">
-  <div class="hero__grid">
-    <div class="hero__top">
-      <div>
-        <span class="eyebrow">Ателье мебели · Москва</span>
-        <h1 class="h1">Мебель на заказ<br>под любой запрос</h1>
-      </div>
-      <div class="hero__aside">
-        <p class="lead">Восемь направлений в одном производстве: от кухни до ресепшена. Один замерщик, один дизайнер, один договор — даже если вы обставляете всю квартиру сразу.</p>
-        <div class="hero__cta">
-          <a class="btn" href="#zayavka">
-            Рассчитать стоимость
-            <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
-          </a>
-          <a class="btn btn--ghost" href="portfolio.html">Смотреть портфолио</a>
-        </div>
-      </div>
-    </div>
+<section class="hero" id="hero">
+  <!-- Слой 1: фон -->
+  <img class="hero__bg hero__layer" id="heroBg" src="img/hero-bg.jpg" alt="" width="1732" height="1300" fetchpriority="high">
 
-    <!-- ЗАМЕНИТЕ цифры на реальные показатели компании -->
-    <div class="hero__stats">
-      <div class="stat">
-        <span class="stat__ico"><svg class="icon" aria-hidden="true"><use href="#i-factory"></use></svg></span>
-        <span class="stat__body">
-          <span class="stat__num">Своё производство</span>
-          <span class="stat__txt">цех в Москве, без посредников</span>
-        </span>
-      </div>
-      <div class="stat">
-        <span class="stat__ico"><svg class="icon" aria-hidden="true"><use href="#i-ruler"></use></svg></span>
-        <span class="stat__body">
-          <span class="stat__num">Бесплатный замер</span>
-          <span class="stat__txt">Москва и область, за 1–2 дня</span>
-        </span>
-      </div>
-      <div class="stat">
-        <span class="stat__ico"><svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg></span>
-        <span class="stat__body">
-          <span class="stat__num">Гарантия 3 года</span>
-          <span class="stat__txt">по договору, с сервисом</span>
-        </span>
-      </div>
-    </div>
+  <!-- Слой 2: надпись — стоит ЗА кухней -->
+  <div class="hero__type" id="heroType">
+    <div class="hero__word" data-split aria-hidden="true">ПАЛКИ</div>
+    <div class="hero__word" data-split="и" aria-hidden="true"><em>и</em>БАЛКИ</div>
+    <h1 class="vh">Палки и Балки — мебель на заказ</h1>
   </div>
+  <div class="hero__sub" id="heroSub">Мебель на заказ</div>
 
-  <div class="hero__marquee" aria-hidden="true">
-    <ul>
-      <li>Кухни</li><li>Шкафы-купе</li><li>Гардеробные</li><li>Детская мебель</li>
-      <li>Мебель для ванной</li><li>Прихожие</li><li>Гостиные и ТВ-зоны</li><li>Офисная мебель</li>
-      <li>Кухни</li><li>Шкафы-купе</li><li>Гардеробные</li><li>Детская мебель</li>
-      <li>Мебель для ванной</li><li>Прихожие</li><li>Гостиные и ТВ-зоны</li><li>Офисная мебель</li>
-    </ul>
-  </div>
-</section>
+  <!-- Слой 3: передний план — остров и каменная столешница с прозрачностью -->
+  <img class="hero__front hero__layer" id="heroFront" src="img/hero-front.webp" alt="Кухня из тёмного шпона с каменной столешницей" width="1732" height="1300">
 
-<!-- ======================= НАВИГАЦИЯ ПО НАПРАВЛЕНИЯМ ======================= -->
-<section class="section section--tight container anchor" id="napravleniya">
-  <div class="section__head reveal">
-    <div>
-      <span class="eyebrow">Направления</span>
-      <h2 class="h2">Выберите, что вам нужно</h2>
-      <p class="lead">Нажмите на направление — откроется блок с примерами, составом работ и сроками.</p>
-    </div>
-    <a class="link-arrow" href="portfolio.html">
-      Все проекты
-      <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+  <div class="hero__veil"></div>
+
+  <div class="hero__tag label"><span>Палки и Балки <i>|</i> Кухни и мебель</span></div>
+
+  <div class="wrap hero__ui">
+    <p class="hero__note">
+      <b>Кухни, в которые хочется возвращаться</b>
+      Тёмный шпон, камень, скрытый свет. Своё производство в Москве, замер и монтаж — одной командой.
+    </p>
+    <a class="btn" href="#plan">
+      <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
+      Обсудить проект
     </a>
   </div>
-
-  <div class="dirs reveal">
-    <button class="dir" type="button" data-goto="dir-kitchen">
-      <span class="dir__ico"><svg class="icon" aria-hidden="true"><use href="#i-kitchen"></use></svg></span>
-      <span class="dir__name">Кухни</span>
-      <span class="dir__foot">от 250 000 ₽ <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-    </button>
-    <button class="dir" type="button" data-goto="dir-wardrobe">
-      <span class="dir__ico"><svg class="icon" aria-hidden="true"><use href="#i-wardrobe"></use></svg></span>
-      <span class="dir__name">Шкафы-купе</span>
-      <span class="dir__foot">от 120 000 ₽ <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-    </button>
-    <button class="dir" type="button" data-goto="dir-dressing">
-      <span class="dir__ico"><svg class="icon" aria-hidden="true"><use href="#i-dressing"></use></svg></span>
-      <span class="dir__name">Гардеробные</span>
-      <span class="dir__foot">от 120 000 ₽ <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-    </button>
-    <button class="dir" type="button" data-goto="dir-kids">
-      <span class="dir__ico"><svg class="icon" aria-hidden="true"><use href="#i-kids"></use></svg></span>
-      <span class="dir__name">Детская мебель</span>
-      <span class="dir__foot">от 90 000 ₽ <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-    </button>
-    <button class="dir" type="button" data-goto="dir-bath">
-      <span class="dir__ico"><svg class="icon" aria-hidden="true"><use href="#i-bath"></use></svg></span>
-      <span class="dir__name">Мебель для ванной</span>
-      <span class="dir__foot">от 50 000 ₽ <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-    </button>
-    <button class="dir" type="button" data-goto="dir-hallway">
-      <span class="dir__ico"><svg class="icon" aria-hidden="true"><use href="#i-hallway"></use></svg></span>
-      <span class="dir__name">Прихожие</span>
-      <span class="dir__foot">от 60 000 ₽ <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-    </button>
-    <button class="dir" type="button" data-goto="dir-living">
-      <span class="dir__ico"><svg class="icon" aria-hidden="true"><use href="#i-living"></use></svg></span>
-      <span class="dir__name">Гостиные и ТВ-зоны</span>
-      <span class="dir__foot">от 35 000 ₽ <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-    </button>
-    <button class="dir" type="button" data-goto="dir-office">
-      <span class="dir__ico"><svg class="icon" aria-hidden="true"><use href="#i-office"></use></svg></span>
-      <span class="dir__name">Офисная мебель</span>
-      <span class="dir__foot">от 80 000 ₽ <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg></span>
-    </button>
-  </div>
 </section>
 
-<!-- ======================= БЛОКИ НАПРАВЛЕНИЙ (аккордеон) ======================= -->
-<section class="section section--tight container">
-  <div class="section__head reveal">
-    <div>
-      <span class="eyebrow">Что мы делаем</span>
-      <h2 class="h2">Подробно по каждому направлению</h2>
-    </div>
-    <button class="link-arrow" type="button" data-acc-all aria-expanded="false">
-      <span>Раскрыть все</span>
-      <svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg>
-    </button>
-  </div>
-
-  <div class="acc reveal" data-acc>
-
-    <!-- 01 Кухни -->
-    <article class="acc__item anchor" id="dir-kitchen" data-dir="kitchen">
-      <h3>
-        <button class="acc__head" type="button" aria-expanded="false" aria-controls="panel-kitchen">
-          <span class="acc__num">01</span>
-          <span class="acc__title"><svg class="icon" aria-hidden="true"><use href="#i-kitchen"></use></svg>Кухни</span>
-          <span class="acc__price">от 250 000 ₽ · 25–35 раб. дней</span>
-          <span class="acc__chev"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
-        </button>
-      </h3>
-      <div class="acc__panel" id="panel-kitchen"><div>
-        <div class="acc__body">
-          <div class="shots">
-            <figure><img src="img/shots/kitchen-1.svg" alt="Кухня на заказ — пример проекта" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/kitchen-2.svg" alt="Кухня на заказ — фрагмент" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/kitchen-3.svg" alt="Кухня на заказ — хранение" loading="lazy" width="1200" height="900"></figure>
-          </div>
-          <div class="acc__info">
-            <p>Кухня под ключ: корпус, фасады, столешница, встроенная техника и свет. Проектируем под вашу планировку, рост и сценарии готовки — от компактной линейной до острова в студии.</p>
-            <dl class="deflist">
-              <dt>Что делаем</dt>
-              <dd>
-                <ul class="ticks">
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Проект с точной расстановкой техники, розеток и вытяжки</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Фасады: крашеный МДФ, шпон, пластик, массив</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Столешницы из кварца, акрила, HPL и массива</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Встроенная техника, подсветка, механизмы Blum и Hettich</li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="deflist">
-              <dt>Для кого</dt>
-              <dd><div class="tags"><span class="tag">Квартира-студия</span><span class="tag">Семья с детьми</span><span class="tag">Кухня-гостиная</span><span class="tag">Загородный дом</span></div></dd>
-            </dl>
-            <div class="acc__actions">
-              <a class="btn btn--sm" href="#zayavka" data-prefill="Кухни">Рассчитать кухню</a>
-              <a class="btn btn--sm btn--ghost" href="portfolio.html#kitchen">Работы по кухням</a>
-            </div>
-          </div>
-        </div>
-      </div></div>
-    </article>
-
-    <!-- 02 Шкафы-купе -->
-    <article class="acc__item anchor" id="dir-wardrobe" data-dir="wardrobe">
-      <h3>
-        <button class="acc__head" type="button" aria-expanded="false" aria-controls="panel-wardrobe">
-          <span class="acc__num">02</span>
-          <span class="acc__title"><svg class="icon" aria-hidden="true"><use href="#i-wardrobe"></use></svg>Шкафы-купе</span>
-          <span class="acc__price">от 120 000 ₽ · 20–28 раб. дней</span>
-          <span class="acc__chev"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
-        </button>
-      </h3>
-      <div class="acc__panel" id="panel-wardrobe"><div>
-        <div class="acc__body">
-          <div class="shots">
-            <figure><img src="img/shots/wardrobe-1.svg" alt="Шкаф-купе на заказ — пример проекта" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/wardrobe-2.svg" alt="Шкаф-купе — двери" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/wardrobe-3.svg" alt="Шкаф-купе — наполнение" loading="lazy" width="1200" height="900"></figure>
-          </div>
-          <div class="acc__info">
-            <p>Шкафы во всю стену и в нишу: раздвижные, распашные и складные двери. Встаём в проёмы со скосами, коробами и трубами — там, где готовые решения не подходят.</p>
-            <dl class="deflist">
-              <dt>Что делаем</dt>
-              <dd>
-                <ul class="ticks">
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Замер ниши с учётом кривизны стен и пола</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Двери: зеркало, лакобель, шпон, рейка, стекло с рисунком</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Наполнение: штанги, полки, брючницы, корзины, сейфы</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Доводчики, подсветка полок, антресоли до потолка</li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="deflist">
-              <dt>Для кого</dt>
-              <dd><div class="tags"><span class="tag">Спальня</span><span class="tag">Ниша</span><span class="tag">Проём со скосом</span><span class="tag">До потолка</span></div></dd>
-            </dl>
-            <div class="acc__actions">
-              <a class="btn btn--sm" href="#zayavka" data-prefill="Шкафы-купе">Рассчитать шкаф</a>
-              <a class="btn btn--sm btn--ghost" href="portfolio.html#wardrobe">Работы по шкафам</a>
-            </div>
-          </div>
-        </div>
-      </div></div>
-    </article>
-
-    <!-- 03 Гардеробные -->
-    <article class="acc__item anchor" id="dir-dressing" data-dir="dressing">
-      <h3>
-        <button class="acc__head" type="button" aria-expanded="false" aria-controls="panel-dressing">
-          <span class="acc__num">03</span>
-          <span class="acc__title"><svg class="icon" aria-hidden="true"><use href="#i-dressing"></use></svg>Гардеробные</span>
-          <span class="acc__price">от 120 000 ₽ · 20–30 раб. дней</span>
-          <span class="acc__chev"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
-        </button>
-      </h3>
-      <div class="acc__panel" id="panel-dressing"><div>
-        <div class="acc__body">
-          <div class="shots">
-            <figure><img src="img/shots/dressing-1.svg" alt="Гардеробная на заказ — пример проекта" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/dressing-2.svg" alt="Гардеробная — стеллажи" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/dressing-3.svg" alt="Гардеробная — обувные модули" loading="lazy" width="1200" height="900"></figure>
-          </div>
-          <div class="acc__info">
-            <p>Отдельная гардеробная комната или гардеробная зона в спальне: открытые системы на стойках, корпусные модули, П- и Г-образные стеллажи с островом.</p>
-            <dl class="deflist">
-              <dt>Что делаем</dt>
-              <dd>
-                <ul class="ticks">
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Раскладка по типам вещей и сезонности</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Алюминиевые и корпусные системы хранения</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Обувные модули, аксессуарницы, островные тумбы</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Подсветка по датчику движения, зеркала в рост</li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="deflist">
-              <dt>Для кого</dt>
-              <dd><div class="tags"><span class="tag">Отдельная комната</span><span class="tag">Зона в спальне</span><span class="tag">Кладовая</span><span class="tag">Мансарда</span></div></dd>
-            </dl>
-            <div class="acc__actions">
-              <a class="btn btn--sm" href="#zayavka" data-prefill="Гардеробные">Рассчитать гардеробную</a>
-              <a class="btn btn--sm btn--ghost" href="portfolio.html#dressing">Работы по гардеробным</a>
-            </div>
-          </div>
-        </div>
-      </div></div>
-    </article>
-
-    <!-- 04 Детская мебель -->
-    <article class="acc__item anchor" id="dir-kids" data-dir="kids">
-      <h3>
-        <button class="acc__head" type="button" aria-expanded="false" aria-controls="panel-kids">
-          <span class="acc__num">04</span>
-          <span class="acc__title"><svg class="icon" aria-hidden="true"><use href="#i-kids"></use></svg>Детская мебель</span>
-          <span class="acc__price">от 90 000 ₽ · 20–30 раб. дней</span>
-          <span class="acc__chev"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
-        </button>
-      </h3>
-      <div class="acc__panel" id="panel-kids"><div>
-        <div class="acc__body">
-          <div class="shots">
-            <figure><img src="img/shots/kids-1.svg" alt="Детская мебель на заказ — пример проекта" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/kids-2.svg" alt="Детская — рабочее место" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/kids-3.svg" alt="Детская — системы хранения" loading="lazy" width="1200" height="900"></figure>
-          </div>
-          <div class="acc__info">
-            <p>Мебель, которая растёт вместе с ребёнком: кровати-чердаки, двухъярусные кровати, рабочие места и хранение. Материалы с сертификатами и безопасная фурнитура.</p>
-            <dl class="deflist">
-              <dt>Что делаем</dt>
-              <dd>
-                <ul class="ticks">
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Кровати-чердаки, двухъярусные, с ящиками и лестницей-комодом</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Рабочее место под рост ребёнка и правильный свет</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Скруглённые углы, доводчики, краски без запаха</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Модули, которые можно перекомпоновать через 3–5 лет</li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="deflist">
-              <dt>Для кого</dt>
-              <dd><div class="tags"><span class="tag">Дошкольник</span><span class="tag">Школьник</span><span class="tag">Двое детей в комнате</span><span class="tag">Подросток</span></div></dd>
-            </dl>
-            <div class="acc__actions">
-              <a class="btn btn--sm" href="#zayavka" data-prefill="Детская мебель">Рассчитать детскую</a>
-              <a class="btn btn--sm btn--ghost" href="portfolio.html#kids">Работы по детским</a>
-            </div>
-          </div>
-        </div>
-      </div></div>
-    </article>
-
-    <!-- 05 Мебель для ванной -->
-    <article class="acc__item anchor" id="dir-bath" data-dir="bath">
-      <h3>
-        <button class="acc__head" type="button" aria-expanded="false" aria-controls="panel-bath">
-          <span class="acc__num">05</span>
-          <span class="acc__title"><svg class="icon" aria-hidden="true"><use href="#i-bath"></use></svg>Мебель для ванной</span>
-          <span class="acc__price">от 50 000 ₽ · 18–25 раб. дней</span>
-          <span class="acc__chev"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
-        </button>
-      </h3>
-      <div class="acc__panel" id="panel-bath"><div>
-        <div class="acc__body">
-          <div class="shots">
-            <figure><img src="img/shots/bath-1.svg" alt="Мебель для ванной на заказ — пример проекта" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/bath-2.svg" alt="Тумба под раковину" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/bath-3.svg" alt="Зеркальный шкаф" loading="lazy" width="1200" height="900"></figure>
-          </div>
-          <div class="acc__info">
-            <p>Тумбы под раковину, пеналы и зеркальные шкафы для влажной зоны: влагостойкий корпус и фасады, которые не ведёт от пара.</p>
-            <dl class="deflist">
-              <dt>Что делаем</dt>
-              <dd>
-                <ul class="ticks">
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Влагостойкий корпус с кромкой по всему периметру</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Фасады: эмаль, шпон, HPL, стекло</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Столешницы из кварцагломерата и литьевого акрила</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Подвесные конструкции, подсветка, розетки внутри</li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="deflist">
-              <dt>Для кого</dt>
-              <dd><div class="tags"><span class="tag">Санузел в квартире</span><span class="tag">Гостевой санузел</span><span class="tag">Ванная в доме</span><span class="tag">Постирочная</span></div></dd>
-            </dl>
-            <div class="acc__actions">
-              <a class="btn btn--sm" href="#zayavka" data-prefill="Мебель для ванной">Рассчитать мебель</a>
-              <a class="btn btn--sm btn--ghost" href="portfolio.html#bath">Работы для ванных</a>
-            </div>
-          </div>
-        </div>
-      </div></div>
-    </article>
-
-    <!-- 06 Прихожие -->
-    <article class="acc__item anchor" id="dir-hallway" data-dir="hallway">
-      <h3>
-        <button class="acc__head" type="button" aria-expanded="false" aria-controls="panel-hallway">
-          <span class="acc__num">06</span>
-          <span class="acc__title"><svg class="icon" aria-hidden="true"><use href="#i-hallway"></use></svg>Прихожие</span>
-          <span class="acc__price">от 60 000 ₽ · 18–25 раб. дней</span>
-          <span class="acc__chev"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
-        </button>
-      </h3>
-      <div class="acc__panel" id="panel-hallway"><div>
-        <div class="acc__body">
-          <div class="shots">
-            <figure><img src="img/shots/hallway-1.svg" alt="Прихожая на заказ — пример проекта" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/hallway-2.svg" alt="Прихожая — скамья и обувница" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/hallway-3.svg" alt="Прихожая — открытая вешалка" loading="lazy" width="1200" height="900"></figure>
-          </div>
-          <div class="acc__info">
-            <p>Первый метр квартиры: закрытый шкаф, открытая вешалка, скамья и обувница в одном решении. Собираем даже в узких коридорах, где остаётся 35 см глубины.</p>
-            <dl class="deflist">
-              <dt>Что делаем</dt>
-              <dd>
-                <ul class="ticks">
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Неглубокие корпуса от 35 см и наклонные обувницы</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Скамья с мягкой посадкой и ящиком под ней</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Секция для верхней одежды, сушки и хозяйственных мелочей</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Износостойкие покрытия, которые легко мыть</li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="deflist">
-              <dt>Для кого</dt>
-              <dd><div class="tags"><span class="tag">Узкий коридор</span><span class="tag">Ниша у входа</span><span class="tag">Семья с детьми</span><span class="tag">Дом с собакой</span></div></dd>
-            </dl>
-            <div class="acc__actions">
-              <a class="btn btn--sm" href="#zayavka" data-prefill="Прихожие">Рассчитать прихожую</a>
-              <a class="btn btn--sm btn--ghost" href="portfolio.html#hallway">Работы по прихожим</a>
-            </div>
-          </div>
-        </div>
-      </div></div>
-    </article>
-
-    <!-- 07 Гостиные и ТВ-зоны -->
-    <article class="acc__item anchor" id="dir-living" data-dir="living">
-      <h3>
-        <button class="acc__head" type="button" aria-expanded="false" aria-controls="panel-living">
-          <span class="acc__num">07</span>
-          <span class="acc__title"><svg class="icon" aria-hidden="true"><use href="#i-living"></use></svg>Гостиные и ТВ-зоны</span>
-          <span class="acc__price">от 35 000 ₽ · 15–25 раб. дней</span>
-          <span class="acc__chev"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
-        </button>
-      </h3>
-      <div class="acc__panel" id="panel-living"><div>
-        <div class="acc__body">
-          <div class="shots">
-            <figure><img src="img/shots/living-1.svg" alt="ТВ-зона на заказ — пример проекта" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/living-2.svg" alt="Гостиная — стеллаж" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/living-3.svg" alt="Гостиная — тумба" loading="lazy" width="1200" height="900"></figure>
-          </div>
-          <div class="acc__info">
-            <p>ТВ-зоны, стеллажи, витрины и тумбы: прячем провода, технику и короба, оставляем ровные линии и один материал на всю стену.</p>
-            <dl class="deflist">
-              <dt>Что делаем</dt>
-              <dd>
-                <ul class="ticks">
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Стена целиком: от ТВ-панели до закрытого хранения</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Кабель-менеджмент и вентиляция под технику</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Подсветка полок и ниш, витрины со стеклом</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Стыкуем с кухней или прихожей в одном материале</li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="deflist">
-              <dt>Для кого</dt>
-              <dd><div class="tags"><span class="tag">Квартира</span><span class="tag">Студия</span><span class="tag">Кабинет</span><span class="tag">Загородный дом</span></div></dd>
-            </dl>
-            <div class="acc__actions">
-              <a class="btn btn--sm" href="#zayavka" data-prefill="Гостиные и ТВ-зоны">Рассчитать ТВ-зону</a>
-              <a class="btn btn--sm btn--ghost" href="portfolio.html#living">Работы по гостиным</a>
-            </div>
-          </div>
-        </div>
-      </div></div>
-    </article>
-
-    <!-- 08 Офисная мебель -->
-    <article class="acc__item anchor" id="dir-office" data-dir="office">
-      <h3>
-        <button class="acc__head" type="button" aria-expanded="false" aria-controls="panel-office">
-          <span class="acc__num">08</span>
-          <span class="acc__title"><svg class="icon" aria-hidden="true"><use href="#i-office"></use></svg>Офисная мебель</span>
-          <span class="acc__price">от 80 000 ₽ · 20–30 раб. дней</span>
-          <span class="acc__chev"><svg class="icon" aria-hidden="true"><use href="#i-chevron"></use></svg></span>
-        </button>
-      </h3>
-      <div class="acc__panel" id="panel-office"><div>
-        <div class="acc__body">
-          <div class="shots">
-            <figure><img src="img/shots/office-1.svg" alt="Офисная мебель на заказ — пример проекта" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/office-2.svg" alt="Ресепшен на заказ" loading="lazy" width="1200" height="900"></figure>
-            <figure><img src="img/shots/office-3.svg" alt="Рабочие места" loading="lazy" width="1200" height="900"></figure>
-          </div>
-          <div class="acc__info">
-            <p>Ресепшены, рабочие места, шкафы для документов, мебель для салонов и кофеен. Работаем с юрлицами и ИП: договор, счёт, закрывающие документы.</p>
-            <dl class="deflist">
-              <dt>Что делаем</dt>
-              <dd>
-                <ul class="ticks">
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Ресепшены и стойки с фирменными материалами</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Рабочие места с лючками, кабель-каналами и тумбами</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Износостойкие покрытия для коммерческой нагрузки</li>
-                  <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Монтаж по графику объекта, в том числе в нерабочие часы</li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="deflist">
-              <dt>Для кого</dt>
-              <dd><div class="tags"><span class="tag">Офис</span><span class="tag">Салон красоты</span><span class="tag">Кофейня</span><span class="tag">Шоурум</span></div></dd>
-            </dl>
-            <div class="acc__actions">
-              <a class="btn btn--sm" href="#zayavka" data-prefill="Офисная мебель">Рассчитать проект</a>
-              <a class="btn btn--sm btn--ghost" href="portfolio.html#office">Работы для бизнеса</a>
-            </div>
-          </div>
-        </div>
-      </div></div>
-    </article>
-
-  </div>
-</section>
-
-<!-- ======================= ПОРТФОЛИО ======================= -->
-<section class="dark-sec anchor" id="portfolio">
-  <div class="container">
-    <div class="section__head reveal">
+<!-- ======================= О КОМПАНИИ ======================= -->
+<section class="card-sec card-sec--first" id="about">
+  <div class="wrap">
+    <div class="sec-head rise">
       <div>
-        <span class="eyebrow">Портфолио</span>
-        <h2 class="h2">Сделанные проекты</h2>
-        <p class="lead">Реальные объекты в Москве и области: от одной тумбы до полной обстановки квартиры.</p>
+        <span class="label label--dim">О компании</span>
+        <h2 class="h2">Делаем мебель,<br>которая переживёт ремонт</h2>
       </div>
-      <a class="btn btn--light" href="portfolio.html">
-        Все проекты
-        <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+      <a class="arrow-link" href="#napravleniya">
+        Что мы делаем <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
       </a>
     </div>
-    <div class="pf-teaser reveal">
-      <a class="pf-card" href="portfolio.html#kitchen">
-        <figure>
-          <img src="img/shots/kitchen-2.svg" alt="Кухня с островом, ЖК в Москве" loading="lazy" width="1200" height="900">
-          <figcaption>Кухня с островом <span>18 м²</span></figcaption>
-        </figure>
-      </a>
-      <a class="pf-card" href="portfolio.html#dressing">
-        <figure>
-          <img src="img/shots/dressing-1.svg" alt="Гардеробная комната" loading="lazy" width="1200" height="900">
-          <figcaption>Гардеробная <span>6 м²</span></figcaption>
-        </figure>
-      </a>
-      <a class="pf-card" href="portfolio.html#living">
-        <figure>
-          <img src="img/shots/living-3.svg" alt="ТВ-зона во всю стену" loading="lazy" width="1200" height="900">
-          <figcaption>ТВ-зона <span>4,2 м</span></figcaption>
-        </figure>
-      </a>
-      <a class="pf-card" href="portfolio.html#kids">
-        <figure>
-          <img src="img/shots/kids-2.svg" alt="Детская для двоих детей" loading="lazy" width="1200" height="900">
-          <figcaption>Детская для двоих <span>14 м²</span></figcaption>
-        </figure>
-      </a>
+
+    <div class="about rise">
+      <div class="about__card">
+        <p class="p-dim">Мы работаем с корпусной мебелью на заказ: от кухни с островом до тумбы в санузел. Проектируем под вашу планировку, рост и сценарии, сами производим и сами монтируем — без подрядчиков в середине процесса.</p>
+        <!-- ЗАМЕНИТЕ цифры на свои -->
+        <div class="about__stats">
+          <div class="stat">
+            <img src="img/shot-wood.jpg" alt="" loading="lazy" width="58" height="58">
+            <span><b>11 лет на рынке</b><i>с 2015 года в Москве</i></span>
+          </div>
+          <div class="stat">
+            <img src="img/shot-hob.jpg" alt="" loading="lazy" width="58" height="58">
+            <span><b>3 000+ проектов</b><i>квартиры, дома, коммерция</i></span>
+          </div>
+          <div class="stat">
+            <img src="img/shot-stone.jpg" alt="" loading="lazy" width="58" height="58">
+            <span><b>700+ образцов фасадов</b><i>смотрим вживую на замере</i></span>
+          </div>
+        </div>
+      </div>
+      <figure class="about__photo">
+        <img src="img/shot-wide.jpg" alt="Кухня на заказ: тёмный шпон, каменный фартук, скрытая подсветка" loading="lazy" width="1732" height="1118">
+      </figure>
     </div>
   </div>
 </section>
 
-<!-- ======================= КАК ПРОХОДИТ РАБОТА ======================= -->
-<section class="section container anchor" id="process">
-  <div class="section__head reveal">
-    <div>
-      <span class="eyebrow">Как проходит работа</span>
-      <h2 class="h2">Один процесс для всех направлений</h2>
-      <p class="lead">Неважно, заказываете вы кухню или одну тумбу в ванную — путь от заявки до готовой мебели одинаковый.</p>
-    </div>
-  </div>
-
-  <ol class="steps reveal">
-    <li class="step">
-      <div class="step__top">
-        <span class="step__n">01</span>
-        <svg class="icon" aria-hidden="true"><use href="#i-measure"></use></svg>
-      </div>
-      <h3>Замер</h3>
-      <p>Приезжаем в удобное время, снимаем размеры с учётом кривизны стен, коммуникаций и розеток. Привозим образцы материалов, чтобы смотреть цвет вживую.</p>
-      <div class="step__meta">Бесплатно · 1–2 дня</div>
-    </li>
-    <li class="step">
-      <div class="step__top">
-        <span class="step__n">02</span>
-        <svg class="icon" aria-hidden="true"><use href="#i-sketch"></use></svg>
-      </div>
-      <h3>Эскиз и смета</h3>
-      <p>Готовим визуализацию, планировку с размерами и прозрачную смету: корпус, фасады, фурнитура, техника — отдельными строками. Правки вносим до подписания.</p>
-      <div class="step__meta">2–4 дня · правки включены</div>
-    </li>
-    <li class="step">
-      <div class="step__top">
-        <span class="step__n">03</span>
-        <svg class="icon" aria-hidden="true"><use href="#i-factory"></use></svg>
-      </div>
-      <h3>Производство</h3>
-      <p>Запускаем заказ в своём цехе: раскрой, кромление, присадка, покраска. Держим вас в курсе на каждом этапе и присылаем фото готовых элементов.</p>
-      <div class="step__meta">15–30 рабочих дней</div>
-    </li>
-    <li class="step">
-      <div class="step__top">
-        <span class="step__n">04</span>
-        <svg class="icon" aria-hidden="true"><use href="#i-install"></use></svg>
-      </div>
-      <h3>Доставка и монтаж</h3>
-      <p>Привозим, собираем и подключаем, выравниваем фасады, убираем за собой. Подписываем акт и передаём гарантию с инструкцией по уходу.</p>
-      <div class="step__meta">1–2 дня · с уборкой</div>
-    </li>
-  </ol>
-
-  <div class="note reveal">
-    <p>Работаем по договору: фиксируем цену, сроки и комплектацию. Предоплата 50%, остаток — после монтажа и приёмки.</p>
-    <a class="btn btn--sm" href="#zayavka">Записаться на замер</a>
-  </div>
-</section>
-
-<!-- ======================= ПОЧЕМУ МЫ ======================= -->
-<section class="dark-sec">
-  <div class="container">
-    <div class="section__head reveal">
+<!-- ======================= ПРЕИМУЩЕСТВА ======================= -->
+<section class="card-sec">
+  <div class="wrap">
+    <div class="sec-head rise">
       <div>
-        <span class="eyebrow">Почему «Палки и Балки»</span>
+        <span class="label label--dim">Почему мы</span>
         <h2 class="h2">Берём на себя всё,<br>что обычно ломает ремонт</h2>
       </div>
     </div>
-    <div class="feats reveal">
+    <div class="feats rise">
       <article class="feat">
         <svg class="icon" aria-hidden="true"><use href="#i-factory"></use></svg>
-        <h3>Своё производство</h3>
-        <p>Не перепродаём чужие заказы: раскрой, покраска и сборка идут в одном цехе. Поэтому сроки и качество зависят только от нас.</p>
+        <h3>Быстро реализуем проекты</h3>
+        <p>Изготовление от 20 рабочих дней с момента запуска в производство. Своё оборудование — не ждём чужой очереди.</p>
+      </article>
+      <article class="feat">
+        <svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>
+        <h3>Гарантия 10 лет</h3>
+        <p>На корпус и фурнитуру. Сервис не заканчивается монтажом: подтянуть, отрегулировать, заменить — по звонку.</p>
+      </article>
+      <article class="feat">
+        <svg class="icon" aria-hidden="true"><use href="#i-layers"></use></svg>
+        <h3>Лучшие материалы</h3>
+        <p>Шпон, крашеный МДФ, камень и HPL подбираем под бюджет и задачу. На замер привозим реальные образцы, а не распечатки.</p>
       </article>
       <article class="feat">
         <svg class="icon" aria-hidden="true"><use href="#i-ruler"></use></svg>
         <h3>Нестандартные размеры</h3>
-        <p>Скошенные потолки, короба, трубы и стены с уклоном — обычная задача. Делаем мебель под вашу геометрию и ваш рост.</p>
+        <p>Скошенные потолки, короба и трубы — рабочая задача. Мебель встаёт в проём миллиметр в миллиметр.</p>
       </article>
       <article class="feat">
-        <svg class="icon" aria-hidden="true"><use href="#i-layers"></use></svg>
+        <svg class="icon" aria-hidden="true"><use href="#i-doc"></use></svg>
         <h3>Договор и техзадание</h3>
-        <p>В договоре — конкретика: материалы, фурнитура, сроки, порядок правок и ответственность за перенос монтажа.</p>
+        <p>Фиксируем цену, сроки, материалы и порядок правок. Предоплата 50%, остаток — после монтажа и приёмки.</p>
       </article>
       <article class="feat">
-        <svg class="icon" aria-hidden="true"><use href="#i-shield"></use></svg>
-        <h3>Гарантия 3 года</h3>
-        <p>Гарантия на изделие и фурнитуру. Сервис не заканчивается вместе с монтажом: подтянуть, отрегулировать, заменить — по звонку.</p>
-      </article>
-      <article class="feat">
-        <svg class="icon" aria-hidden="true"><use href="#i-clock"></use></svg>
-        <h3>Понятные сроки</h3>
-        <p>Называем дату монтажа до подписания и держим её. Если что-то сдвигается по вине производства — уменьшаем стоимость.</p>
-      </article>
-      <article class="feat">
-        <svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>
-        <h3>Образцы на замере</h3>
-        <p>Привозим настоящие образцы фасадов и столешниц, а не распечатки: цвет, матовость и фактуру видно сразу.</p>
+        <svg class="icon" aria-hidden="true"><use href="#i-light"></use></svg>
+        <h3>Свет и техника в проекте</h3>
+        <p>Считаем подсветку, розетки и вентиляцию до раскроя, чтобы потом не штробить готовую стену.</p>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ======================= ОТЗЫВЫ =======================
-     ДЕМО-ДАННЫЕ. Замените на реальные отзывы клиентов перед публикацией. -->
-<section class="section container anchor" id="otzyvy">
-  <div class="section__head reveal">
-    <div>
-      <span class="eyebrow">Отзывы</span>
-      <h2 class="h2">Что говорят клиенты</h2>
-      <p class="lead">Отзывы обо всех направлениях — так же, как мы работаем: одной командой.</p>
+<!-- ======================= НАПРАВЛЕНИЯ ======================= -->
+<section class="card-sec card-sec--light on-light" id="napravleniya">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div>
+        <span class="label label--dim">Направления</span>
+        <h2 class="h2">Кухня — главное,<br>но не единственное</h2>
+        <p class="p-dim">Обставляем квартиру целиком: один замерщик, один дизайнер, один договор.</p>
+      </div>
+      <a class="arrow-link" href="portfolio.html">
+        Все работы <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+      </a>
     </div>
-    <div class="stars" aria-label="Средняя оценка 4,9 из 5">
-      <svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>
-      <svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>
-      <svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>
-      <svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>
-      <svg class="icon" aria-hidden="true"><use href="#i-star"></use></svg>
+    <div class="dirs rise">
+      <a class="dir" href="portfolio.html#kitchen"><svg class="icon" aria-hidden="true"><use href="#i-kitchen"></use></svg><b>Кухни</b><i>от 250 000 ₽</i></a>
+      <a class="dir" href="portfolio.html#wardrobe"><svg class="icon" aria-hidden="true"><use href="#i-wardrobe"></use></svg><b>Шкафы-купе</b><i>от 120 000 ₽</i></a>
+      <a class="dir" href="portfolio.html#dressing"><svg class="icon" aria-hidden="true"><use href="#i-dressing"></use></svg><b>Гардеробные</b><i>от 120 000 ₽</i></a>
+      <a class="dir" href="portfolio.html#kids"><svg class="icon" aria-hidden="true"><use href="#i-kids"></use></svg><b>Детская мебель</b><i>от 90 000 ₽</i></a>
+      <a class="dir" href="portfolio.html#bath"><svg class="icon" aria-hidden="true"><use href="#i-bath"></use></svg><b>Мебель для ванной</b><i>от 50 000 ₽</i></a>
+      <a class="dir" href="portfolio.html#hallway"><svg class="icon" aria-hidden="true"><use href="#i-hallway"></use></svg><b>Прихожие</b><i>от 60 000 ₽</i></a>
+      <a class="dir" href="portfolio.html#living"><svg class="icon" aria-hidden="true"><use href="#i-living"></use></svg><b>Гостиные и ТВ-зоны</b><i>от 35 000 ₽</i></a>
+      <a class="dir" href="portfolio.html#office"><svg class="icon" aria-hidden="true"><use href="#i-office"></use></svg><b>Офисная мебель</b><i>от 80 000 ₽</i></a>
     </div>
-  </div>
-
-  <div class="reviews reveal">
-    <article class="review">
-      <div class="review__q"><svg class="icon" aria-hidden="true"><use href="#i-quote"></use></svg></div>
-      <p class="review__text">Делали кухню и заодно прихожую. Понравилось, что замерщик сразу сказал, где не встанет посудомойка, и предложил другой вариант. Смету не двигали ни разу.</p>
-      <div class="review__foot">
-        <span class="review__ava">А</span>
-        <span class="stat__body">
-          <span class="review__name">Анна К.</span>
-          <span class="review__meta">Кухня и прихожая · Москва</span>
-        </span>
-      </div>
-    </article>
-    <article class="review">
-      <div class="review__q"><svg class="icon" aria-hidden="true"><use href="#i-quote"></use></svg></div>
-      <p class="review__text">Шкаф в нишу со скошенной стеной, куда до этого отказались вставать два производителя. Сделали за три недели, зазоров нет.</p>
-      <div class="review__foot">
-        <span class="review__ava">Д</span>
-        <span class="stat__body">
-          <span class="review__name">Дмитрий Л.</span>
-          <span class="review__meta">Шкаф-купе · Химки</span>
-        </span>
-      </div>
-    </article>
-    <article class="review">
-      <div class="review__q"><svg class="icon" aria-hidden="true"><use href="#i-quote"></use></svg></div>
-      <p class="review__text">Детская для двоих: кровать-чердак и два рабочих места. Спросили рост детей и сделали столы разной высоты — сама бы не додумалась.</p>
-      <div class="review__foot">
-        <span class="review__ava">М</span>
-        <span class="stat__body">
-          <span class="review__name">Мария С.</span>
-          <span class="review__meta">Детская · Москва</span>
-        </span>
-      </div>
-    </article>
-    <article class="review">
-      <div class="review__q"><svg class="icon" aria-hidden="true"><use href="#i-quote"></use></svg></div>
-      <p class="review__text">Обставляли квартиру целиком: кухня, гардеробная, ванная, ТВ-зона. Один договор и один менеджер вместо четырёх подрядчиков — это сильно экономит нервы.</p>
-      <div class="review__foot">
-        <span class="review__ava">И</span>
-        <span class="stat__body">
-          <span class="review__name">Игорь В.</span>
-          <span class="review__meta">Обстановка квартиры · Одинцово</span>
-        </span>
-      </div>
-    </article>
-    <article class="review">
-      <div class="review__q"><svg class="icon" aria-hidden="true"><use href="#i-quote"></use></svg></div>
-      <p class="review__text">Тумба и пенал в ванную. Через полгода после ремонта ничего не повело, хотя ванная маленькая и пара там постоянно.</p>
-      <div class="review__foot">
-        <span class="review__ava">Е</span>
-        <span class="stat__body">
-          <span class="review__name">Екатерина П.</span>
-          <span class="review__meta">Мебель для ванной · Москва</span>
-        </span>
-      </div>
-    </article>
-    <article class="review">
-      <div class="review__q"><svg class="icon" aria-hidden="true"><use href="#i-quote"></use></svg></div>
-      <p class="review__text">Оборудовали студию: ресепшен и шкафы для материалов. Монтаж делали в воскресенье, чтобы не закрывать запись клиентов. Документы прислали в тот же день.</p>
-      <div class="review__foot">
-        <span class="review__ava">О</span>
-        <span class="stat__body">
-          <span class="review__name">Ольга Р.</span>
-          <span class="review__meta">Салон красоты · Москва</span>
-        </span>
-      </div>
-    </article>
   </div>
 </section>
 
-<!-- ======================= КВИЗ / ЗАЯВКА ======================= -->
-<section class="section container anchor" id="zayavka">
-  <div class="quiz reveal">
-    <div class="quiz__aside">
-      <span class="eyebrow">Заявка за 30 секунд</span>
-      <h2 class="h2">Соберём смету<br>под ваш бюджет</h2>
-      <p>Отметьте направление и бюджет — мы подготовим предварительный расчёт и предложим 2–3 варианта комплектации. Заявка уйдёт в Telegram: текст уже будет готов, останется нажать «отправить».</p>
-      <div class="quiz__direct">
-        <div class="menu__label">Не любите формы?</div>
-        <a class="menu__big" href="tel:+79990000000">+7 (999) 000-00-00</a>
-        <div class="quiz__socials">
-          <a class="btn btn--sm btn--light" href="https://t.me/palki_i_balki" target="_blank" rel="noopener">
-            <svg class="icon icon--brand" aria-hidden="true"><use href="#i-tg"></use></svg>
-            Telegram
-          </a>
-          <a class="btn btn--sm btn--ghost-light" href="https://wa.me/79990000000" target="_blank" rel="noopener">
-            <svg class="icon icon--brand" aria-hidden="true"><use href="#i-wa"></use></svg>
-            WhatsApp
+<!-- ======================= ПОРТФОЛИО ======================= -->
+<section class="card-sec card-sec--flush" id="portfolio">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div>
+        <span class="label label--dim">Портфолио</span>
+        <h2 class="h2">Сделанные проекты</h2>
+      </div>
+      <a class="arrow-link" href="portfolio.html">
+        Перейти в портфолио <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+      </a>
+    </div>
+  </div>
+
+  <!-- ЗАМЕНИТЕ: пока это кадрировки одного фото и плейсхолдеры -->
+  <div class="gallery rise" role="region" aria-label="Галерея проектов" tabindex="0">
+    <figure class="g-1">
+      <img src="img/shot-wood.jpg" alt="Кухня из тёмного шпона" loading="lazy">
+      <figcaption>Кухня в шпоне эвкалипта<i>18 м² · Москва</i></figcaption>
+    </figure>
+    <figure class="g-2">
+      <img src="img/shots/bath-1.svg" alt="Мебель для ванной" loading="lazy">
+      <figcaption>Мебель для ванной<i>камень и эмаль</i></figcaption>
+    </figure>
+    <figure class="g-3">
+      <img src="img/shot-stone.jpg" alt="Каменная столешница с мойкой" loading="lazy">
+      <figcaption>Остров с каменной столешницей<i>кварцит, 3,2 м</i></figcaption>
+    </figure>
+    <div class="g-mid">
+      <span class="label label--dim">Палки и Балки</span>
+      <b>Территория качественной мебели</b>
+    </div>
+    <figure class="g-3">
+      <img src="img/shot-hob.jpg" alt="Варочная панель в острове" loading="lazy">
+      <figcaption>Рабочая зона острова<i>скрытая вытяжка</i></figcaption>
+    </figure>
+    <figure class="g-2">
+      <img src="img/shots/living-2.svg" alt="ТВ-зона" loading="lazy">
+      <figcaption>ТВ-зона во всю стену<i>4,2 м</i></figcaption>
+    </figure>
+    <figure class="g-1">
+      <img src="img/shots/dressing-1.svg" alt="Гардеробная" loading="lazy">
+      <figcaption>Гардеробная<i>6 м² · подсветка</i></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ======================= БЛОК С ЦИФРОЙ ======================= -->
+<section class="card-sec card-sec--flush">
+  <div class="wrap">
+    <div class="bignum rise">
+      <img src="img/shot-wide.jpg" alt="" loading="lazy">
+      <div class="bignum__body">
+        <span class="label label--dim">Опыт</span>
+        <div class="bignum__n">3 000+</div>
+        <h2 class="h3">Успешно разработали и собрали проектов в Москве и области</h2>
+        <p class="p-dim">От одной тумбы до полной обстановки дома. Каждый проект — свой замер, свой чертёж и своя смета.</p>
+        <div>
+          <a class="btn" href="portfolio.html">
+            Перейти в портфолио <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
           </a>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <form class="quiz__form" id="quiz" novalidate>
-      <div class="qstep" role="group" aria-labelledby="q-dir-title">
-        <div class="qstep__head">
-          <span class="qstep__n">ШАГ 1 / 2</span>
-          <span class="qstep__title" id="q-dir-title">Какое направление интересует?</span>
+<!-- ======================= КОЛЛЕКЦИИ ======================= -->
+<section class="card-sec card-sec--light on-light" id="collections">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div>
+        <span class="label label--dim">Коллекции</span>
+        <h2 class="h2">Готовые решения,<br>которые адаптируем под вас</h2>
+        <p class="p-dim">Каждая коллекция — базовая компоновка и набор материалов. Размеры, наполнение и цвет меняем под вашу планировку.</p>
+      </div>
+    </div>
+    <div class="collections rise">
+      <!-- ЗАМЕНИТЕ: названия, артикулы и характеристики коллекций -->
+      <article class="coll">
+        <div class="coll__media"><img src="img/shot-wide.jpg" alt="Кухня коллекции «Балка»" loading="lazy"></div>
+        <div class="coll__body">
+          <div class="coll__top"><b>Балка</b><span class="coll__art">Арт. PB-01</span></div>
+          <dl class="specs">
+            <div><dt>Компоновка</dt><dd>Прямая с островом</dd></div>
+            <div><dt>Фасады</dt><dd>Шпон эвкалипта</dd></div>
+            <div><dt>Материал корпуса</dt><dd>ЛДСП Egger, 18 мм</dd></div>
+            <div><dt>Покрытие</dt><dd>Матовый лак</dd></div>
+            <div><dt>Цвет</dt><dd>Тёмное дерево</dd></div>
+            <div><dt>Открывание</dt><dd>Push-to-open</dd></div>
+          </dl>
         </div>
-        <span class="qstep__hint">Можно выбрать несколько</span>
-        <div class="chips">
-          <label class="chip"><input type="checkbox" name="dir" value="Кухни"><span>Кухни</span></label>
-          <label class="chip"><input type="checkbox" name="dir" value="Шкафы-купе"><span>Шкафы-купе</span></label>
-          <label class="chip"><input type="checkbox" name="dir" value="Гардеробные"><span>Гардеробные</span></label>
-          <label class="chip"><input type="checkbox" name="dir" value="Детская мебель"><span>Детская мебель</span></label>
-          <label class="chip"><input type="checkbox" name="dir" value="Мебель для ванной"><span>Мебель для ванной</span></label>
-          <label class="chip"><input type="checkbox" name="dir" value="Прихожие"><span>Прихожие</span></label>
-          <label class="chip"><input type="checkbox" name="dir" value="Гостиные и ТВ-зоны"><span>Гостиные и ТВ-зоны</span></label>
-          <label class="chip"><input type="checkbox" name="dir" value="Офисная мебель"><span>Офисная мебель</span></label>
-          <label class="chip"><input type="checkbox" name="dir" value="Обстановка под ключ"><span>Обстановка под ключ</span></label>
+      </article>
+      <article class="coll">
+        <div class="coll__media"><img src="img/shot-stone.jpg" alt="Кухня коллекции «Камень»" loading="lazy"></div>
+        <div class="coll__body">
+          <div class="coll__top"><b>Камень</b><span class="coll__art">Арт. PB-02</span></div>
+          <dl class="specs">
+            <div><dt>Компоновка</dt><dd>П-образная</dd></div>
+            <div><dt>Фасады</dt><dd>Крашеный МДФ</dd></div>
+            <div><dt>Материал столешницы</dt><dd>Кварцит, 20 мм</dd></div>
+            <div><dt>Покрытие</dt><dd>Софт-тач</dd></div>
+            <div><dt>Цвет</dt><dd>Тёплый greige</dd></div>
+            <div><dt>Открывание</dt><dd>Профиль-ручка</dd></div>
+          </dl>
         </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= FAQ ======================= -->
+<section class="card-sec" id="faq">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div>
+        <span class="label label--dim">Вопросы</span>
+        <h2 class="h2">Что спрашивают чаще всего</h2>
+      </div>
+    </div>
+    <div class="faq rise" data-faq>
+      <article class="faq__item">
+        <h3><button class="faq__head" type="button" aria-expanded="false" aria-controls="f1">
+          <span>Возможна ли оплата в рассрочку?</span>
+          <span class="faq__sign"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </button></h3>
+        <div class="faq__panel" id="f1"><div><p>Да. Стандартная схема — 50% при запуске в производство и 50% после монтажа. Для крупных проектов делим оплату на три части и фиксируем график в договоре. Также работаем с рассрочкой от банков-партнёров.</p></div></div>
+      </article>
+      <article class="faq__item">
+        <h3><button class="faq__head" type="button" aria-expanded="false" aria-controls="f2">
+          <span>Какие материалы используете?</span>
+          <span class="faq__sign"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </button></h3>
+        <div class="faq__panel" id="f2"><div><p>Корпус — ЛДСП и МДФ класса Е1 и Е0. Фасады — шпон, крашеный МДФ, пластик, HPL, массив. Столешницы — кварцевый агломерат, акрил, HPL, камень. Фурнитура — Blum и Hettich с доводчиками. На замере привозим образцы, чтобы вы видели цвет и фактуру вживую.</p></div></div>
+      </article>
+      <article class="faq__item">
+        <h3><button class="faq__head" type="button" aria-expanded="false" aria-controls="f3">
+          <span>Как выглядит процесс работы?</span>
+          <span class="faq__sign"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </button></h3>
+        <div class="faq__panel" id="f3"><div><p>Четыре шага. Замер — бесплатно, за 1–2 дня, с образцами материалов. Эскиз и смета — 2–4 дня, правки до подписания договора. Производство — 20–30 рабочих дней, присылаем фото готовых элементов. Доставка и монтаж — 1–2 дня, с уборкой, актом и гарантией.</p></div></div>
+      </article>
+      <article class="faq__item">
+        <h3><button class="faq__head" type="button" aria-expanded="false" aria-controls="f4">
+          <span>Работаете ли вы с дизайнерами и подрядчиками?</span>
+          <span class="faq__sign"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </button></h3>
+        <div class="faq__panel" id="f4"><div><p>Да, принимаем проект от вашего дизайнера и ведём его до монтажа: проверяем узлы, согласуем спецификацию и стыкуемся с бригадой по срокам, электрике и вентиляции.</p></div></div>
+      </article>
+      <article class="faq__item">
+        <h3><button class="faq__head" type="button" aria-expanded="false" aria-controls="f5">
+          <span>Что делать, если ремонт ещё не закончен?</span>
+          <span class="faq__sign"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </button></h3>
+        <div class="faq__panel" id="f5"><div><p>Это нормальная ситуация: чем раньше сделан предварительный замер, тем меньше переделок. Мы выезжаем на черновой отделке, даём план размещения электрики и вентиляции, а финальный замер делаем по готовым стенам.</p></div></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= ЛИД-МАГНИТ И КВИЗ ======================= -->
+<section class="card-sec" id="plan">
+  <div class="wrap">
+    <div class="lead rise">
+      <div class="lead__aside">
+        <span class="socket"><svg class="icon" aria-hidden="true"><use href="#i-socket"></use></svg></span>
+        <span class="label label--dim">Бесплатно</span>
+        <h2 class="h2">Получите план<br>размещения электрики</h2>
+        <p class="p-dim">Схема розеток, выводов и подсветки под вашу кухню — до того, как бригада закроет стены. Отправим в Telegram вместе с предварительным расчётом.</p>
+        <ul class="lead__list">
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Высоты розеток под технику и подсветку</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Вывод воды, вентиляции и слива</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Что согласовать с бригадой до чистовой отделки</li>
+        </ul>
       </div>
 
-      <div class="qstep" role="group" aria-labelledby="q-budget-title">
-        <div class="qstep__head">
-          <span class="qstep__n">ШАГ 2 / 2</span>
-          <span class="qstep__title" id="q-budget-title">На какой бюджет ориентируетесь?</span>
+      <form class="quiz" id="quiz" novalidate>
+        <div class="qstep" role="group" aria-labelledby="q1">
+          <div class="qstep__t"><span class="qstep__n">ШАГ 1 / 2</span><b id="q1">Что планируете заказывать?</b></div>
+          <span class="qstep__hint">Можно выбрать несколько</span>
+          <div class="chips">
+            <label class="chip"><input type="checkbox" name="dir" value="Кухня"><span>Кухня</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="Шкаф-купе"><span>Шкаф-купе</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="Гардеробная"><span>Гардеробная</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="Детская"><span>Детская</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="Мебель для ванной"><span>Ванная</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="Прихожая"><span>Прихожая</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="Гостиная и ТВ-зона"><span>Гостиная</span></label>
+            <label class="chip"><input type="checkbox" name="dir" value="Обстановка под ключ"><span>Всё под ключ</span></label>
+          </div>
         </div>
-        <span class="qstep__hint">Приблизительно — уточним после замера</span>
-        <div class="chips">
-          <label class="chip"><input type="radio" name="budget" value="до 100 000 ₽"><span>до 100 000 ₽</span></label>
-          <label class="chip"><input type="radio" name="budget" value="100 000 – 250 000 ₽"><span>100–250 тыс. ₽</span></label>
-          <label class="chip"><input type="radio" name="budget" value="250 000 – 500 000 ₽"><span>250–500 тыс. ₽</span></label>
-          <label class="chip"><input type="radio" name="budget" value="500 000 – 1 000 000 ₽"><span>500 тыс. – 1 млн ₽</span></label>
-          <label class="chip"><input type="radio" name="budget" value="больше 1 000 000 ₽"><span>больше 1 млн ₽</span></label>
-          <label class="chip"><input type="radio" name="budget" value="пока не определён"><span>Пока не определён</span></label>
-        </div>
-      </div>
 
-      <div class="field">
-        <label for="q-name">Как к вам обращаться (необязательно)</label>
-        <input type="text" id="q-name" name="name" placeholder="Имя" autocomplete="name" maxlength="60">
-      </div>
-
-      <div class="quiz__submit">
-        <div class="quiz__preview" id="quiz-preview" aria-live="polite"></div>
-        <p class="form-status" id="quiz-status" role="status"></p>
-        <div class="quiz__row">
-          <button class="btn btn--light" type="submit">
-            <svg class="icon icon--brand" aria-hidden="true"><use href="#i-tg"></use></svg>
-            Отправить в Telegram
-          </button>
-          <button class="btn btn--ghost-light" type="button" data-quiz-wa>
-            <svg class="icon icon--brand" aria-hidden="true"><use href="#i-wa"></use></svg>
-            Отправить в WhatsApp
-          </button>
+        <div class="qstep" role="group" aria-labelledby="q2">
+          <div class="qstep__t"><span class="qstep__n">ШАГ 2 / 2</span><b id="q2">Бюджет проекта</b></div>
+          <span class="qstep__hint">Приблизительно — уточним после замера</span>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="budget" value="до 250 000 ₽"><span>до 250 тыс. ₽</span></label>
+            <label class="chip"><input type="radio" name="budget" value="250 000 – 500 000 ₽"><span>250–500 тыс. ₽</span></label>
+            <label class="chip"><input type="radio" name="budget" value="500 000 – 1 000 000 ₽"><span>500 тыс. – 1 млн ₽</span></label>
+            <label class="chip"><input type="radio" name="budget" value="больше 1 000 000 ₽"><span>больше 1 млн ₽</span></label>
+            <label class="chip"><input type="radio" name="budget" value="пока не определён"><span>Пока не определён</span></label>
+          </div>
         </div>
-        <p class="quiz__note">
-          Нажимая кнопку, вы соглашаетесь с <a href="#kontakty">политикой обработки персональных данных</a>.
-          Текст заявки откроется в мессенджере — вы увидите его до отправки и сможете дополнить.
-        </p>
-        <button class="quiz__copy" type="button" data-quiz-copy>Скопировать текст заявки</button>
+
+        <div class="field">
+          <label for="q-name">Как к вам обращаться (необязательно)</label>
+          <input type="text" id="q-name" name="name" placeholder="Имя" autocomplete="name" maxlength="60">
+        </div>
+
+        <div class="quiz__foot">
+          <div class="preview" id="preview" aria-live="polite"></div>
+          <p class="status" id="status" role="status"></p>
+          <div class="quiz__row">
+            <button class="btn" type="submit">
+              <svg class="icon icon--fill" aria-hidden="true"><use href="#i-tg"></use></svg>
+              Получить план
+            </button>
+            <a class="btn btn--ghost" href="tel:+79990000000">
+              <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
+              Позвонить
+            </a>
+          </div>
+          <button class="copy-btn" type="button" data-copy>Скопировать текст заявки</button>
+          <p class="fineprint">Заявка откроется в Telegram с готовым текстом — вы увидите его до отправки. Данные никуда не уходят с сайта.</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= КОНТАКТЫ ======================= -->
+<section class="card-sec" id="contacts">
+  <div class="wrap">
+    <div class="sec-head rise">
+      <div>
+        <span class="label label--dim">Контакты</span>
+        <h2 class="h2">Приезжайте в шоурум<br>или напишите в Telegram</h2>
       </div>
-    </form>
+    </div>
+    <div class="contacts rise">
+      <div class="contacts__card">
+        <div class="contacts__rows">
+          <div>
+            <span class="label">Телефон</span>
+            <b><a href="tel:+79990000000">+7 (999) 000-00-00</a></b>
+          </div>
+          <div>
+            <span class="label">Telegram</span>
+            <b><a href="https://t.me/PR0_XBOCT" target="_blank" rel="noopener">@PR0_XBOCT</a></b>
+          </div>
+          <div>
+            <span class="label">Шоурум и производство</span>
+            <b>Москва, ул. Складочная, 1с1</b>
+            <p>Пн–Сб, 10:00–20:00 · приём по записи</p>
+          </div>
+        </div>
+        <a class="btn btn--wide" href="https://t.me/PR0_XBOCT" target="_blank" rel="noopener">
+          <svg class="icon icon--fill" aria-hidden="true"><use href="#i-tg"></use></svg>
+          Написать в Telegram
+        </a>
+      </div>
+      <!-- ЗАМЕНИТЕ на встраиваемую Яндекс.Карту с точным адресом -->
+      <a class="map" href="https://yandex.ru/maps/?text=Москва%2C%20улица%20Складочная%2C%201%D1%811" target="_blank" rel="noopener">
+        <svg class="map__road" viewBox="0 0 600 400" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+          <g fill="none" stroke="rgba(184,173,159,0.35)" stroke-width="2">
+            <path d="M-20 250 L180 250 L260 170 L640 170"/>
+            <path d="M120 -20 L120 250"/>
+            <path d="M420 170 L420 420"/>
+            <path d="M-20 330 L300 330 L380 420"/>
+          </g>
+          <g fill="none" stroke="rgba(184,173,159,0.16)" stroke-width="1">
+            <path d="M-20 100 L640 100"/><path d="M250 -20 L250 170"/><path d="M520 170 L520 420"/>
+          </g>
+        </svg>
+        <span class="map__pin">
+          <span class="map__dot"><svg class="icon" aria-hidden="true"><use href="#i-pin"></use></svg></span>
+          <b>Москва, ул. Складочная, 1с1</b>
+          <span>Открыть в Яндекс.Картах</span>
+        </span>
+      </a>
+    </div>
   </div>
 </section>
 
 </main>
 
 <!-- ======================= ПОДВАЛ ======================= -->
-<footer class="footer anchor" id="kontakty">
-  <div class="container">
-    <div class="footer__grid">
-      <div class="footer__brand">
-        <span class="logo">
-          <span class="logo__mark">Палки и Балки</span>
-          <span class="logo__sub">ателье мебели</span>
-        </span>
-        <p>Корпусная мебель на заказ в Москве и области. Своё производство, замер, дизайн-проект и монтаж — в одной команде.</p>
+<footer class="card-sec foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div class="foot__brand">
+        <span class="logo"><b>Палки и Балки</b></span>
+        <p>Кухни и корпусная мебель на заказ в Москве и области. Своё производство, замер, проект и монтаж — одной командой.</p>
+        <div class="foot__socials">
+          <a class="ibtn ibtn--dark" href="https://t.me/PR0_XBOCT" target="_blank" rel="noopener" aria-label="Telegram">
+            <svg class="icon icon--fill" aria-hidden="true"><use href="#i-tg"></use></svg>
+          </a>
+          <a class="ibtn ibtn--dark" href="tel:+79990000000" aria-label="Позвонить">
+            <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
+          </a>
+        </div>
       </div>
       <div>
         <h4>Разделы</h4>
-        <ul class="footer__list">
+        <ul>
+          <li><a href="#about">О компании</a></li>
           <li><a href="#napravleniya">Направления</a></li>
           <li><a href="portfolio.html">Портфолио</a></li>
-          <li><a href="#process">Как работаем</a></li>
-          <li><a href="#otzyvy">Отзывы</a></li>
-          <li><a href="#zayavka">Рассчитать стоимость</a></li>
+          <li><a href="#collections">Коллекции</a></li>
+          <li><a href="#faq">Вопросы</a></li>
         </ul>
       </div>
       <div>
         <h4>Направления</h4>
-        <ul class="footer__list">
-          <li><a href="#dir-kitchen">Кухни</a></li>
-          <li><a href="#dir-wardrobe">Шкафы-купе</a></li>
-          <li><a href="#dir-dressing">Гардеробные</a></li>
-          <li><a href="#dir-kids">Детская мебель</a></li>
-          <li><a href="#dir-bath">Мебель для ванной</a></li>
-          <li><a href="#dir-office">Офисная мебель</a></li>
+        <ul>
+          <li><a href="portfolio.html#kitchen">Кухни</a></li>
+          <li><a href="portfolio.html#wardrobe">Шкафы-купе</a></li>
+          <li><a href="portfolio.html#dressing">Гардеробные</a></li>
+          <li><a href="portfolio.html#bath">Мебель для ванной</a></li>
+          <li><a href="portfolio.html#office">Офисная мебель</a></li>
         </ul>
       </div>
       <div>
         <h4>Контакты</h4>
-        <!-- ЗАМЕНИТЕ контакты и адрес на реальные -->
-        <div class="footer__contacts">
-          <a href="tel:+79990000000"><strong>+7 (999) 000-00-00</strong></a>
-          <a href="mailto:hello@palki-i-balki.ru">hello@palki-i-balki.ru</a>
-          <span>Москва, ул. Складочная, 1с1<br>Пн–Сб, 10:00–20:00 · по записи</span>
-          <div class="footer__socials">
-            <a class="btn-icon" href="https://t.me/palki_i_balki" target="_blank" rel="noopener" aria-label="Telegram">
-              <svg class="icon icon--brand" aria-hidden="true"><use href="#i-tg"></use></svg>
-            </a>
-            <a class="btn-icon" href="https://wa.me/79990000000" target="_blank" rel="noopener" aria-label="WhatsApp">
-              <svg class="icon icon--brand" aria-hidden="true"><use href="#i-wa"></use></svg>
-            </a>
-            <a class="btn-icon" href="tel:+79990000000" aria-label="Позвонить">
-              <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
-            </a>
-          </div>
-        </div>
+        <ul>
+          <li><a href="tel:+79990000000">+7 (999) 000-00-00</a></li>
+          <li><a href="https://t.me/PR0_XBOCT" target="_blank" rel="noopener">@PR0_XBOCT</a></li>
+          <li>Москва, ул. Складочная, 1с1</li>
+          <li>Пн–Сб, 10:00–20:00</li>
+        </ul>
       </div>
     </div>
-    <div class="footer__bottom">
+    <div class="foot__bottom">
       <span>© <span id="year">2026</span> Ателье мебели «Палки и Балки»</span>
-      <span>Информация на сайте не является публичной офертой. <a href="#kontakty">Политика обработки персональных данных</a></span>
+      <span>Информация на сайте не является публичной офертой</span>
     </div>
   </div>
 </footer>
 
-<!-- ======================= МОБИЛЬНАЯ ПАНЕЛЬ ======================= -->
-<div class="mobile-bar">
-  <a class="btn" href="#zayavka">Рассчитать стоимость</a>
-  <a class="btn-icon" href="https://t.me/palki_i_balki" target="_blank" rel="noopener" aria-label="Написать в Telegram">
-    <svg class="icon icon--brand" aria-hidden="true"><use href="#i-tg"></use></svg>
+<div class="bar">
+  <a class="btn" href="#plan">Получить план</a>
+  <a class="ibtn ibtn--dark" href="https://t.me/PR0_XBOCT" target="_blank" rel="noopener" aria-label="Telegram">
+    <svg class="icon icon--fill" aria-hidden="true"><use href="#i-tg"></use></svg>
   </a>
 </div>
 
@@ -965,22 +1190,323 @@
   "@context": "https://schema.org",
   "@type": "FurnitureStore",
   "name": "Палки и Балки — ателье мебели",
-  "description": "Корпусная мебель на заказ в Москве: кухни, шкафы-купе, гардеробные, детская мебель, мебель для ванной, прихожие, гостиные и офисная мебель.",
-  "image": "img/og.svg",
+  "description": "Кухни и корпусная мебель на заказ в Москве: своё производство, замер, дизайн-проект и монтаж.",
+  "image": "img/hero-bg.jpg",
   "telephone": "+7 999 000-00-00",
-  "email": "hello@palki-i-balki.ru",
   "priceRange": "₽₽",
-  "address": {
-    "@type": "PostalAddress",
-    "addressLocality": "Москва",
-    "streetAddress": "ул. Складочная, 1с1",
-    "addressCountry": "RU"
-  },
+  "address": { "@type": "PostalAddress", "addressLocality": "Москва", "streetAddress": "ул. Складочная, 1с1", "addressCountry": "RU" },
   "areaServed": "Москва и Московская область",
-  "openingHours": "Mo-Sa 10:00-20:00"
+  "openingHours": "Mo-Sa 10:00-20:00",
+  "sameAs": ["https://t.me/PR0_XBOCT"]
 }
 </script>
 
-<script src="js/main.js" defer></script>
+<script>
+/* ==========================================================================
+   Палки и Балки — анимации главного экрана, меню, FAQ, квиз.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var doc = document, body = doc.body;
+  var $ = function (s, r) { return (r || doc).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || doc).querySelectorAll(s)); };
+  var TG = body.dataset.tg || '';
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  var y = $('#year'); if (y) y.textContent = String(new Date().getFullYear());
+
+  /* ---------- Надпись героя: разбиваем на буквы и выводим по одной ---------- */
+  var chars = [];
+  $$('[data-split]').forEach(function (word) {
+    var small = word.dataset.split;          /* маленькое «и» перед словом */
+    var text = word.textContent.trim();
+    if (small) text = text.slice(small.length);
+    word.innerHTML = '';
+    if (small) {
+      var em = doc.createElement('em');
+      em.textContent = small;
+      word.appendChild(em);
+      chars.push(em);
+    }
+    text.split('').forEach(function (ch) {
+      var s = doc.createElement('span');
+      s.className = 'hero__ch';
+      s.textContent = ch;
+      word.appendChild(s);
+      chars.push(s);
+    });
+  });
+
+  if (calm) {
+    chars.forEach(function (c) { c.style.opacity = 1; });
+  } else {
+    chars.forEach(function (c, i) {
+      c.style.opacity = '0';
+      c.style.transform = 'translateY(0.42em)';
+      c.style.transition = 'opacity .8s cubic-bezier(.22,.61,.36,1) ' + (i * 40 + 160) + 'ms,' +
+                           'transform .9s cubic-bezier(.22,.61,.36,1) ' + (i * 40 + 160) + 'ms';
+    });
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        chars.forEach(function (c) { c.style.opacity = ''; c.style.transform = ''; });
+      });
+    });
+    /* кухня переднего плана проявляется вместе с буквами */
+    var front = $('#heroFront');
+    if (front) {
+      front.style.opacity = '0';
+      front.style.transition = 'opacity 1.1s cubic-bezier(.22,.61,.36,1) 120ms';
+      requestAnimationFrame(function () { front.style.opacity = '1'; });
+    }
+  }
+
+  /* ---------- Параллакс героя ---------- */
+  var hero = $('#hero'), heroBg = $('#heroBg'), heroFront = $('#heroFront');
+  var heroType = $('#heroType'), heroSub = $('#heroSub');
+  var words = $$('.hero__word');
+  var ticking = false;
+
+  /* Где на экране проходит кромка столешницы.
+     Фото 1732×1300 выводится через object-fit: cover с object-position 50% 55%,
+     кромка — на 77% высоты исходника. Считаем ту же математику, что и браузер,
+     и опускаем надпись так, чтобы низ букв ушёл ЗА мебель. */
+  var SRC_RATIO = 1732 / 1300, POS_Y = 0.55;
+  var EDGE = 0.745;   /* самая высокая точка кромки — правый край каменной столешницы */
+  var DIP = 0.25;     /* какая доля высоты буквы уходит за мебель */
+  var BASE = 0.12;    /* базовая линия выше низа строки на 0.12em (line-height 0.86) */
+
+  function zoom() {
+    var v = parseFloat(getComputedStyle(doc.documentElement).getPropertyValue('--hero-zoom'));
+    return isNaN(v) ? 1 : v;
+  }
+
+  function edgeY(w, h) {
+    var raw;
+    if (w / h > SRC_RATIO) {              /* экран шире фото — режется верх и низ */
+      var rh = w / SRC_RATIO;
+      raw = EDGE * rh - (rh - h) * POS_Y;
+    } else {
+      raw = EDGE * h;                     /* экран уже фото — высота видна целиком */
+    }
+    return h - (h - raw) * zoom();        /* слои масштабируются от низа экрана */
+  }
+
+  function placeType() {
+    if (!hero || !heroType) return;
+    var w = hero.clientWidth, h = hero.clientHeight;
+    var fs = parseFloat(getComputedStyle(words[0]).fontSize);
+    var cap = fs * 0.72;
+    var bottom = edgeY(w, h) + cap * DIP + fs * BASE;
+
+    /* надпись не должна наезжать на нижний ряд с текстом и кнопкой */
+    var ui = $('.hero__ui');
+    if (ui) {
+      var limit = ui.getBoundingClientRect().top - hero.getBoundingClientRect().top
+                  - (heroSub ? heroSub.offsetHeight : 0) - cap * 0.5 - 20;
+      bottom = Math.min(bottom, limit);
+    }
+    var top = Math.round(bottom - heroType.offsetHeight);
+    heroType.style.top = Math.max(top, 72) + 'px';
+    heroType.style.transform = 'none';
+    if (heroSub) heroSub.style.top = Math.round(bottom + cap * 0.26) + 'px';
+  }
+
+  if (hero) {
+    placeType();
+    window.addEventListener('resize', placeType, { passive: true });
+    if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(placeType);
+  }
+
+  function paint() {
+    ticking = false;
+    if (!hero) return;
+    var h = hero.offsetHeight || 1;
+    var p = Math.min(Math.max(window.scrollY / h, 0), 1);   /* прогресс ухода героя */
+    var z = zoom();
+    if (heroBg) heroBg.style.transform = 'scale(' + (z * (1 + p * 0.06)) + ')';
+    if (heroFront) heroFront.style.transform = 'scale(' + (z * (1 + p * 0.15)) + ') translate3d(0,' + (p * 26) + 'px,0)';
+    var fade = String(Math.max(1 - p * 1.6, 0));
+    if (heroType) {
+      heroType.style.transform = 'scale(' + (1 + p * 0.3) + ')';
+      heroType.style.opacity = fade;
+    }
+    if (heroSub) {
+      heroSub.style.opacity = fade;
+      heroSub.style.transform = 'translate3d(0,' + (p * 40) + 'px,0)';
+    }
+    if (words[0]) words[0].style.transform = 'translate3d(' + (-p * 26) + 'vw,0,0)';
+    if (words[1]) words[1].style.transform = 'translate3d(' + (p * 26) + 'vw,0,0)';
+  }
+
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(paint); }
+  }
+
+  if (!calm) {
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    paint();
+  }
+
+  /* ---------- Шапка прячется при скролле вниз, нижняя панель — наоборот ---------- */
+  (function header() {
+    var head = $('#head'), bar = $('.bar'); if (!head) return;
+    var last = 0;
+    window.addEventListener('scroll', function () {
+      var s = window.scrollY;
+      head.classList.toggle('is-hidden', s > 220 && s > last && $('#menu').dataset.open !== 'true');
+      if (bar) bar.classList.toggle('is-in', s > (hero ? hero.offsetHeight * 0.7 : 500));
+      last = s;
+    }, { passive: true });
+  }());
+
+  /* ---------- Меню ---------- */
+  (function menu() {
+    var m = $('#menu'), open = $('[data-menu-open]');
+    if (!m || !open) return;
+    var back = null;
+    function show() {
+      back = doc.activeElement;
+      m.hidden = false;
+      requestAnimationFrame(function () {
+        m.dataset.open = 'true';
+        body.classList.add('is-locked');
+        open.setAttribute('aria-expanded', 'true');
+        var c = $('[data-menu-close]', m); if (c) c.focus();
+      });
+    }
+    function hide() {
+      if (m.dataset.open !== 'true') return;
+      m.dataset.open = 'false';
+      body.classList.remove('is-locked');
+      open.setAttribute('aria-expanded', 'false');
+      window.setTimeout(function () { if (m.dataset.open === 'false') m.hidden = true; }, 420);
+      if (back && back.focus) back.focus();
+    }
+    open.addEventListener('click', show);
+    $$('[data-menu-close]').forEach(function (b) { b.addEventListener('click', hide); });
+    $$('[data-menu-link]', m).forEach(function (a) { a.addEventListener('click', hide); });
+    doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+  }());
+
+  /* ---------- FAQ ---------- */
+  $$('[data-faq] .faq__head').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.faq__item');
+      var open = item.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  });
+
+  /* ---------- Появление секций ---------- */
+  (function rise() {
+    var items = $$('.rise');
+    if (!items.length) return;
+    if (!('IntersectionObserver' in window) || calm) {
+      items.forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    items.forEach(function (el) { io.observe(el); });
+  }());
+
+  /* ---------- Галерея портфолио: тянем мышью ---------- */
+  (function drag() {
+    var g = $('.gallery'); if (!g) return;
+    var down = false, startX = 0, startLeft = 0;
+    g.addEventListener('pointerdown', function (e) {
+      down = true; startX = e.clientX; startLeft = g.scrollLeft;
+      g.setPointerCapture(e.pointerId);
+      g.style.cursor = 'grabbing';
+    });
+    g.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      g.scrollLeft = startLeft - (e.clientX - startX);
+    });
+    ['pointerup', 'pointercancel'].forEach(function (ev) {
+      g.addEventListener(ev, function () { down = false; g.style.cursor = ''; });
+    });
+  }());
+
+  /* ---------- Квиз → Telegram ---------- */
+  (function quiz() {
+    var form = $('#quiz'); if (!form) return;
+    var preview = $('#preview'), status = $('#status');
+
+    var dirs = function () { return $$('input[name="dir"]:checked', form).map(function (i) { return i.value; }); };
+    var budget = function () { var b = $('input[name="budget"]:checked', form); return b ? b.value : ''; };
+    var name = function () { var n = $('#q-name', form); return n ? n.value.trim() : ''; };
+
+    function message() {
+      var lines = ['Здравствуйте! Заявка с сайта «Палки и Балки».'];
+      lines.push('Хочу план размещения электрики и предварительный расчёт.');
+      lines.push('Направление: ' + (dirs().length ? dirs().join(', ') : '—'));
+      lines.push('Бюджет: ' + (budget() || '—'));
+      if (name()) lines.push('Имя: ' + name());
+      return lines.join('\n');
+    }
+
+    function esc(s) {
+      return String(s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function draw() {
+      if (!preview) return;
+      preview.innerHTML = 'Текст заявки:\n' +
+        'Направление: <b>' + esc(dirs().length ? dirs().join(', ') : 'не выбрано') + '</b>\n' +
+        'Бюджет: <b>' + esc(budget() || 'не выбран') + '</b>' +
+        (name() ? '\nИмя: <b>' + esc(name()) + '</b>' : '');
+    }
+
+    function say(t) { if (status) status.textContent = t; }
+
+    function valid() {
+      if (!dirs().length) { say('Отметьте хотя бы один пункт — так мы поймём задачу.'); var a = $('input[name="dir"]', form); if (a) a.focus(); return false; }
+      if (!budget()) { say('Выберите ориентир по бюджету — можно приблизительно.'); var b = $('input[name="budget"]', form); if (b) b.focus(); return false; }
+      say(''); return true;
+    }
+
+    form.addEventListener('change', draw);
+    form.addEventListener('input', draw);
+    draw();
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!valid()) return;
+      if (!TG) { say('Не задан Telegram: атрибут data-tg у <body>.'); return; }
+      var url = 'https://t.me/' + TG + '?text=' + encodeURIComponent(message());
+      var w = window.open(url, '_blank', 'noopener');
+      if (!w) window.location.href = url;
+      say('Открываем Telegram — текст заявки уже подставлен, остаётся отправить.');
+    });
+
+    var copy = $('[data-copy]');
+    if (copy) {
+      copy.addEventListener('click', function () {
+        var text = message();
+        var done = function () { say('Текст скопирован — вставьте в любой мессенджер.'); };
+        function fallback() {
+          var ta = doc.createElement('textarea');
+          ta.value = text; ta.setAttribute('readonly', '');
+          ta.style.cssText = 'position:fixed;opacity:0';
+          body.appendChild(ta); ta.select();
+          try { doc.execCommand('copy'); done(); } catch (err) { say('Не вышло скопировать — выделите текст вручную.'); }
+          body.removeChild(ta);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done, fallback);
+        } else { fallback(); }
+      });
+    }
+  }());
+}());
+</script>
 </body>
 </html>

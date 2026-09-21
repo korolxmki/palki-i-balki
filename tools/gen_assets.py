@@ -109,6 +109,21 @@ ICONS = {
         <path d="M13 19.5v5M20 18.5v7M27 17.5v5M34 16.5v7"/>""",
     "layers": """<path d="M24 6 5 16l19 10 19-10z"/><path d="M5 26l19 10 19-10"/><path d="M5 34l19 8 19-8"/>""",
     "menu": """<path d="M7 16h34M7 24h34M7 32h34"/>""",
+    "chat": """
+        <path d="M24 7c-9.9 0-18 6.5-18 14.5 0 4.6 2.7 8.7 6.9 11.4L11 42l8.8-4.6c1.3.3 2.8.5 4.2.5 9.9 0 18-6.5 18-14.4S33.9 7 24 7z"/>
+        <path d="M17 21h14M17 27h9"/>""",
+    "doc": """
+        <path d="M13 6h14l8 8v28H13z"/>
+        <path d="M27 6v8h8"/>
+        <path d="M19 26h12M19 33h12M19 19h5"/>""",
+    "light": """
+        <path d="M17 33a11 11 0 1 1 14 0c-1.6 1.3-2.4 2.6-2.5 4.5h-9c-.1-1.9-.9-3.2-2.5-4.5z"/>
+        <path d="M19.5 42h9"/>
+        <path d="M24 4v4M8 20h4M36 20h4M12 8l3 3M36 8l-3 3"/>""",
+    "socket": """
+        <rect x="7" y="7" width="34" height="34" rx="8"/>
+        <circle cx="24" cy="24" r="10"/>
+        <path d="M20 21v4M28 21v4"/>""",
     "close": """<path d="M12 12l24 24M36 12L12 36"/>""",
     "chevron": """<path d="M12 19l12 12 12-12"/>""",
 }
@@ -141,11 +156,11 @@ def sprite() -> str:
 # ─────────────────────────────────────────────────────────────
 TONES = [
     # (верх градиента, низ, цвет линий/иконки, цвет текста)
-    ("#e4e0d9", "#c8c1b6", "#8d8579", "#4a453e"),
-    ("#b6ada1", "#918879", "#efeae2", "#2d2a26"),
-    ("#3c3936", "#262321", "#a09587", "#e7e3dc"),
-    ("#d5cec4", "#b0a89b", "#7d7467", "#3a3630"),
-    ("#514c46", "#332f2c", "#b3a897", "#ece8e1"),
+    ("#2a2725", "#1a1816", "#b8ad9f", "#f2efea"),
+    ("#b8ad9f", "#948878", "#2a2725", "#1a1816"),
+    ("#3a2f28", "#221c18", "#a9917f", "#f2efea"),
+    ("#e8e7e5", "#cbc7c0", "#6f6559", "#1a1a1a"),
+    ("#5a3f33", "#33231c", "#cbbfae", "#f2efea"),
 ]
 
 SHOTS = {
@@ -188,8 +203,8 @@ def shot(slug: str, label: str, icon: str, idx: int, tone: int) -> str:
 
 def favicon() -> str:
     return """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="14" fill="#232323"/>
-  <g stroke="#e6e4e0" stroke-width="5" stroke-linecap="round">
+  <rect width="64" height="64" rx="14" fill="#1e1c1a"/>
+  <g stroke="#f2efea" stroke-width="5" stroke-linecap="round">
     <path d="M18 46V18h11a8 8 0 0 1 0 16h-11"/>
     <path d="M38 46V18"/><path d="M38 46h8"/>
   </g>
@@ -199,16 +214,16 @@ def favicon() -> str:
 
 def og() -> str:
     return """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
-  <rect width="1200" height="630" fill="#232323"/>
-  <circle cx="1030" cy="120" r="300" fill="#343434"/>
-  <g font-family="Manrope, Arial, sans-serif" fill="#e6e4e0">
+  <rect width="1200" height="630" fill="#1e1c1a"/>
+  <circle cx="1030" cy="120" r="300" fill="#2a2725"/>
+  <g font-family="Manrope, Arial, sans-serif" fill="#f2efea">
     <text x="80" y="250" font-size="52" font-weight="500" opacity="0.7" letter-spacing="6">АТЕЛЬЕ МЕБЕЛИ · МОСКВА</text>
     <text x="80" y="370" font-size="104" font-weight="800" letter-spacing="-2">ПАЛКИ И БАЛКИ</text>
     <text x="80" y="450" font-size="40" font-weight="500" opacity="0.8">Мебель на заказ под любой запрос</text>
   </g>
-  <rect x="80" y="510" width="360" height="72" rx="36" fill="#e6e4e0"/>
-  <text x="260" y="556" font-size="26" font-weight="700" fill="#232323" text-anchor="middle"
-        font-family="Manrope, Arial, sans-serif" letter-spacing="2">БЕСПЛАТНЫЙ ЗАМЕР</text>
+  <rect x="80" y="510" width="360" height="72" rx="36" fill="#b8ad9f"/>
+  <text x="260" y="556" font-size="26" font-weight="700" fill="#1e1c1a" text-anchor="middle"
+        font-family="Manrope, Arial, sans-serif" letter-spacing="2">ОБСУДИТЬ ПРОЕКТ</text>
 </svg>
 """
 
