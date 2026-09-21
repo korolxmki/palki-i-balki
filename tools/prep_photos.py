@@ -64,7 +64,7 @@ def main() -> None:
     big = grain(upscale(src))
     img = ROOT / "img"
 
-    big.save(img / "hero-bg.jpg", quality=88, optimize=True, progressive=True)
+    big.save(img / "hero-bg.jpg", quality=80, optimize=True, progressive=True)
     # WebP с альфой: полноразмерный PNG весит 3,6 МБ, WebP — в двадцать раз меньше
     foreground(big).save(img / "hero-front.webp", quality=88, method=6)
 
@@ -78,8 +78,19 @@ def main() -> None:
     w, h = big.size
     for name, (l, t, r, b) in crops.items():
         big.crop((int(w * l), int(h * t), int(w * r), int(h * b))).save(
-            img / f"{name}.jpg", quality=86, optimize=True, progressive=True
+            img / f"{name}.jpg", quality=78, optimize=True, progressive=True
         )
+    # Квадратные миниатюры под плашки с цифрами (слот 58×58)
+    for name, box in {
+        "thumb-wood": (0.10, 0.06, 0.40, 0.46),
+        "thumb-hob": (0.06, 0.66, 0.36, 1.00),
+        "thumb-stone": (0.62, 0.40, 0.92, 0.86),
+    }.items():
+        l, t, r, bo = box
+        big.crop((int(w * l), int(h * t), int(w * r), int(h * bo))).resize(
+            (140, 140), Image.LANCZOS
+        ).save(img / f"{name}.jpg", quality=82, optimize=True)
+
     print("готово:", ", ".join(sorted(p.name for p in img.glob("*.jpg"))), "+ hero-front.webp")
 
 

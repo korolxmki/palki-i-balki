@@ -1299,10 +1299,9 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
     var cap = fs * 0.72;
     var bottom = edgeY(w, h) + cap * DIP + fs * BASE;
 
-    /* На телефоне нижний ряд занимает всю ширину — там надпись надо поджать.
-       На десктопе он стоит по краям, центр свободен, и ограничение не нужно. */
+    /* надпись не должна наезжать на нижний ряд с текстом и кнопкой */
     var ui = $('.hero__ui');
-    if (ui && getComputedStyle(ui).flexDirection === 'column') {
+    if (ui) {
       var limit = ui.getBoundingClientRect().top - hero.getBoundingClientRect().top
                   - (heroSub ? heroSub.offsetHeight : 0) - cap * 0.5 - 20;
       bottom = Math.min(bottom, limit);
