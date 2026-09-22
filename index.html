@@ -371,8 +371,58 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 .feat h3 { font-size: clamp(17px, 1.35vw, 22px); font-weight: 700; letter-spacing: -0.02em; }
 .feat p { color: var(--cream-dim); font-size: clamp(13px, 0.95vw, 15px); }
 
-/* Направления */
-.dirs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); }
+/* Направления — витрина с фото */
+.dirs-head {
+  display: grid; justify-items: center; gap: clamp(20px, 2.4vw, 34px);
+  text-align: center; margin-bottom: clamp(30px, 4vw, 58px);
+}
+.dirs-head figure {
+  width: clamp(112px, 11vw, 168px); aspect-ratio: 1;
+  border-radius: var(--r); overflow: hidden; background: var(--light-2);
+}
+.dirs-head figure img { width: 100%; height: 100%; object-fit: cover; }
+.dirs-head h2 { max-width: 20ch; }
+
+.dcards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--gap); }
+.dcard {
+  display: grid; gap: clamp(14px, 1.4vw, 20px); align-content: start;
+  padding: clamp(16px, 1.6vw, 22px);
+  background: #efeeec; border-radius: var(--r); color: var(--ink);
+  transition: transform 0.35s var(--ease), background 0.35s var(--ease);
+}
+.dcard:hover { transform: translateY(-4px); background: #f5f4f2; }
+.dcard__top { display: grid; gap: 6px; }
+.dcard__top b { font-size: clamp(15px, 1.2vw, 19px); font-weight: 700; letter-spacing: -0.015em; }
+.dcard__top span { font-size: clamp(12px, 0.92vw, 14px); color: var(--ink-dim); }
+.dcard__media {
+  position: relative; aspect-ratio: 4 / 5; overflow: hidden;
+  border-radius: var(--r-sm); background: var(--light-2);
+}
+.dcard__media img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s var(--ease); }
+.dcard:hover .dcard__media img { transform: scale(1.05); }
+.dcard__plus {
+  position: absolute; inset: 0; margin: auto;
+  width: 46px; height: 46px; display: grid; place-items: center;
+  border-radius: 50%; background: rgba(26, 26, 26, 0.42); color: #fff;
+  backdrop-filter: blur(4px); transition: background 0.3s var(--ease);
+}
+.dcard__plus .icon { width: 20px; height: 20px; }
+.dcard:hover .dcard__plus { background: var(--graphite); }
+
+/* Производство */
+.prod { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.22fr); gap: var(--gap); }
+.prod__card {
+  display: grid; align-content: end; gap: 18px;
+  min-height: clamp(320px, 34vw, 520px); padding: clamp(24px, 2.8vw, 48px);
+  background: var(--graphite-2); border: 1px solid var(--hair-dark); border-radius: var(--r);
+}
+.prod__photo { border-radius: var(--r); overflow: hidden; background: var(--graphite-2); min-height: clamp(280px, 30vw, 520px); }
+.prod__photo img { width: 100%; height: 100%; object-fit: cover; }
+.prod__marks { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.prod__marks span {
+  padding: 9px 17px; border: 1px solid var(--hair-dark); border-radius: var(--pill);
+  font-size: 12px; font-weight: 500; color: var(--greige);
+}
 .dir {
   display: flex; flex-direction: column; gap: 16px;
   padding: clamp(18px, 1.8vw, 26px); min-height: 150px;
@@ -596,7 +646,8 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 @media (max-width: 1100px) {
   .about, .lead, .contacts { grid-template-columns: 1fr; }
   .feats, .collections { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .dirs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .dcards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .prod { grid-template-columns: 1fr; }
   .menu__body { grid-template-columns: 1fr; }
   .foot__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .head__place { display: none; }
@@ -611,8 +662,9 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
   .hero__tag { top: 104px; }
   .hero__ui .btn { width: 100%; }
   .hero__note { max-width: none; }
-  .feats, .collections, .dirs { grid-template-columns: 1fr; }
-  .dirs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feats, .collections { grid-template-columns: 1fr; }
+  .dcards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .dirs-head h2 { max-width: none; }
   .foot__grid { grid-template-columns: 1fr; }
   .bar { display: flex; }
   .head__tel { display: none; }
@@ -673,11 +725,12 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
     <nav aria-label="Основная навигация">
       <a class="menu__link" href="#about" data-menu-link>О компании <i>01</i></a>
       <a class="menu__link" href="#napravleniya" data-menu-link>Направления <i>02</i></a>
-      <a class="menu__link" href="#portfolio" data-menu-link>Портфолио <i>03</i></a>
-      <a class="menu__link" href="#collections" data-menu-link>Коллекции <i>04</i></a>
-      <a class="menu__link" href="#faq" data-menu-link>Вопросы <i>05</i></a>
-      <a class="menu__link" href="#plan" data-menu-link>Получить план <i>06</i></a>
-      <a class="menu__link" href="#contacts" data-menu-link>Контакты <i>07</i></a>
+      <a class="menu__link" href="#production" data-menu-link>Производство <i>03</i></a>
+      <a class="menu__link" href="#portfolio" data-menu-link>Портфолио <i>04</i></a>
+      <a class="menu__link" href="#collections" data-menu-link>Коллекции <i>05</i></a>
+      <a class="menu__link" href="#faq" data-menu-link>Вопросы <i>06</i></a>
+      <a class="menu__link" href="#zamer" data-menu-link>Заказать замер <i>07</i></a>
+      <a class="menu__link" href="#contacts" data-menu-link>Контакты <i>08</i></a>
     </nav>
     <div class="menu__aside">
       <div>
@@ -723,7 +776,7 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
       <b>Кухни, в которые хочется возвращаться</b>
       Тёмный шпон, камень, скрытый свет. Своё производство в Москве, замер и монтаж — одной командой.
     </p>
-    <a class="btn" href="#plan">
+    <a class="btn" href="#zamer">
       <svg class="icon" aria-hidden="true"><use href="#i-chat"></use></svg>
       Обсудить проект
     </a>
@@ -816,25 +869,88 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 <!-- ======================= НАПРАВЛЕНИЯ ======================= -->
 <section class="card-sec card-sec--light on-light" id="napravleniya">
   <div class="wrap">
-    <div class="sec-head rise">
-      <div>
-        <span class="label label--dim">Направления</span>
-        <h2 class="h2">Кухня — главное,<br>но не единственное</h2>
-        <p class="p-dim">Обставляем квартиру целиком: один замерщик, один дизайнер, один договор.</p>
-      </div>
-      <a class="arrow-link" href="portfolio.html">
-        Все работы <svg class="icon" aria-hidden="true"><use href="#i-arrow"></use></svg>
+    <div class="dirs-head rise">
+      <figure><img src="img/shot-hob.jpg" alt="Кухня на заказ" loading="lazy"></figure>
+      <span class="label label--dim">Направления</span>
+      <h2 class="h2">Реализуем проекты<br>любой сложности<br>и комплектуем под ключ</h2>
+    </div>
+    <!-- ЗАМЕНИТЕ фото в карточках на свои по каждому направлению -->
+    <div class="dcards rise">
+      <a class="dcard" href="portfolio.html#kitchen">
+        <span class="dcard__top"><b>Кухни</b><span>от 250 000 руб.</span></span>
+        <span class="dcard__media">
+          <img src="img/shot-wide.jpg" alt="Кухни на заказ" loading="lazy">
+          <span class="dcard__plus"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </span>
+      </a>
+      <a class="dcard" href="portfolio.html#wardrobe">
+        <span class="dcard__top"><b>Шкафы-купе</b><span>от 120 000 руб.</span></span>
+        <span class="dcard__media">
+          <img src="img/shots/wardrobe-1.svg" alt="Шкафы-купе на заказ" loading="lazy">
+          <span class="dcard__plus"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </span>
+      </a>
+      <a class="dcard" href="portfolio.html#dressing">
+        <span class="dcard__top"><b>Гардеробные</b><span>от 120 000 руб.</span></span>
+        <span class="dcard__media">
+          <img src="img/shots/dressing-1.svg" alt="Гардеробные на заказ" loading="lazy">
+          <span class="dcard__plus"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </span>
+      </a>
+      <a class="dcard" href="portfolio.html#kids">
+        <span class="dcard__top"><b>Детская мебель</b><span>от 90 000 руб.</span></span>
+        <span class="dcard__media">
+          <img src="img/shots/kids-2.svg" alt="Детская мебель на заказ" loading="lazy">
+          <span class="dcard__plus"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </span>
+      </a>
+      <a class="dcard" href="portfolio.html#bath">
+        <span class="dcard__top"><b>Мебель для ванной</b><span>от 50 000 руб.</span></span>
+        <span class="dcard__media">
+          <img src="img/shots/bath-1.svg" alt="Мебель для ванной на заказ" loading="lazy">
+          <span class="dcard__plus"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </span>
+      </a>
+      <a class="dcard" href="portfolio.html#hallway">
+        <span class="dcard__top"><b>Прихожие</b><span>от 60 000 руб.</span></span>
+        <span class="dcard__media">
+          <img src="img/shots/hallway-2.svg" alt="Прихожие на заказ" loading="lazy">
+          <span class="dcard__plus"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </span>
+      </a>
+      <a class="dcard" href="portfolio.html#living">
+        <span class="dcard__top"><b>Гостиные и ТВ-зоны</b><span>от 35 000 руб.</span></span>
+        <span class="dcard__media">
+          <img src="img/shots/living-2.svg" alt="Гостиные и ТВ-зоны на заказ" loading="lazy">
+          <span class="dcard__plus"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </span>
+      </a>
+      <a class="dcard" href="portfolio.html#office">
+        <span class="dcard__top"><b>Офисная мебель</b><span>от 80 000 руб.</span></span>
+        <span class="dcard__media">
+          <img src="img/shots/office-2.svg" alt="Офисная мебель на заказ" loading="lazy">
+          <span class="dcard__plus"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span>
+        </span>
       </a>
     </div>
-    <div class="dirs rise">
-      <a class="dir" href="portfolio.html#kitchen"><svg class="icon" aria-hidden="true"><use href="#i-kitchen"></use></svg><b>Кухни</b><i>от 250 000 ₽</i></a>
-      <a class="dir" href="portfolio.html#wardrobe"><svg class="icon" aria-hidden="true"><use href="#i-wardrobe"></use></svg><b>Шкафы-купе</b><i>от 120 000 ₽</i></a>
-      <a class="dir" href="portfolio.html#dressing"><svg class="icon" aria-hidden="true"><use href="#i-dressing"></use></svg><b>Гардеробные</b><i>от 120 000 ₽</i></a>
-      <a class="dir" href="portfolio.html#kids"><svg class="icon" aria-hidden="true"><use href="#i-kids"></use></svg><b>Детская мебель</b><i>от 90 000 ₽</i></a>
-      <a class="dir" href="portfolio.html#bath"><svg class="icon" aria-hidden="true"><use href="#i-bath"></use></svg><b>Мебель для ванной</b><i>от 50 000 ₽</i></a>
-      <a class="dir" href="portfolio.html#hallway"><svg class="icon" aria-hidden="true"><use href="#i-hallway"></use></svg><b>Прихожие</b><i>от 60 000 ₽</i></a>
-      <a class="dir" href="portfolio.html#living"><svg class="icon" aria-hidden="true"><use href="#i-living"></use></svg><b>Гостиные и ТВ-зоны</b><i>от 35 000 ₽</i></a>
-      <a class="dir" href="portfolio.html#office"><svg class="icon" aria-hidden="true"><use href="#i-office"></use></svg><b>Офисная мебель</b><i>от 80 000 ₽</i></a>
+  </div>
+</section>
+
+<!-- ======================= ПРОИЗВОДСТВО ======================= -->
+<section class="card-sec card-sec--flush" id="production">
+  <div class="wrap">
+    <div class="prod rise">
+      <div class="prod__card">
+        <span class="label label--dim">Производство</span>
+        <h2 class="h2">Производство корпусной мебели полного цикла</h2>
+        <p class="p-dim">Раскрой, кромление и присадка идут на станках с ЧПУ: деталь выходит с точностью до десятой доли миллиметра. Поэтому фасады садятся в ровный зазор 3 мм и не расходятся через год.</p>
+        <p class="p-dim">Цех собственный, в Москве. Мы не стоим в чужой очереди на раскрой и не зависим от подрядчика: если деталь нужно переделать, это день, а не месяц.</p>
+        <div class="prod__marks">
+          <span>ЧПУ-раскрой</span><span>кромка ПУР</span><span>точность 0,1 мм</span><span>свой цех в Москве</span>
+        </div>
+      </div>
+      <!-- ЗАМЕНИТЕ на фото вашего цеха и станков -->
+      <figure class="prod__photo"><img src="img/shots/production-1.svg" alt="Станок кромкооблицовочный в цехе" loading="lazy"></figure>
     </div>
   </div>
 </section>
@@ -999,19 +1115,20 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
   </div>
 </section>
 
-<!-- ======================= ЛИД-МАГНИТ И КВИЗ ======================= -->
-<section class="card-sec" id="plan">
+<!-- ======================= ЗАМЕР И КВИЗ ======================= -->
+<section class="card-sec" id="zamer">
   <div class="wrap">
     <div class="lead rise">
       <div class="lead__aside">
-        <span class="socket"><svg class="icon" aria-hidden="true"><use href="#i-socket"></use></svg></span>
-        <span class="label label--dim">Бесплатно</span>
-        <h2 class="h2">Получите план<br>размещения электрики</h2>
-        <p class="p-dim">Схема розеток, выводов и подсветки под вашу кухню — до того, как бригада закроет стены. Отправим в Telegram вместе с предварительным расчётом.</p>
+        <span class="socket"><svg class="icon" aria-hidden="true"><use href="#i-ruler"></use></svg></span>
+        <span class="label label--dim">Бесплатно и ни к чему не обязывает</span>
+        <h2 class="h2">Закажите<br>бесплатный замер</h2>
+        <p class="p-dim">Приедем в удобное время, снимем размеры с учётом кривизны стен, коммуникаций и розеток, привезём образцы фасадов и столешниц. После замера — точная смета и эскиз.</p>
         <ul class="lead__list">
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Высоты розеток под технику и подсветку</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Вывод воды, вентиляции и слива</li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Что согласовать с бригадой до чистовой отделки</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Выезд по Москве и области — бесплатно, за 1–2 дня</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Образцы материалов привозим с собой, цвет смотрите вживую</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Замер на черновой отделке — подскажем, где вывести розетки и воду</li>
+          <li><svg class="icon" aria-hidden="true"><use href="#i-check"></use></svg>Смета и эскиз после замера, без обязательств</li>
         </ul>
       </div>
 
@@ -1054,7 +1171,7 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
           <div class="quiz__row">
             <button class="btn" type="submit">
               <svg class="icon icon--fill" aria-hidden="true"><use href="#i-tg"></use></svg>
-              Получить план
+              Заказать замер
             </button>
             <a class="btn btn--ghost" href="tel:+79990000000">
               <svg class="icon" aria-hidden="true"><use href="#i-phone"></use></svg>
@@ -1062,7 +1179,7 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
             </a>
           </div>
           <button class="copy-btn" type="button" data-copy>Скопировать текст заявки</button>
-          <p class="fineprint">Заявка откроется в Telegram с готовым текстом — вы увидите его до отправки. Данные никуда не уходят с сайта.</p>
+          <p class="fineprint">Заявка откроется в Telegram с готовым текстом — вы увидите его до отправки. Данные никуда не уходят с сайта. Замер бесплатный и ни к чему не обязывает.</p>
         </div>
       </form>
     </div>
@@ -1149,6 +1266,7 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
           <li><a href="portfolio.html">Портфолио</a></li>
           <li><a href="#collections">Коллекции</a></li>
           <li><a href="#faq">Вопросы</a></li>
+          <li><a href="#zamer">Заказать замер</a></li>
         </ul>
       </div>
       <div>
@@ -1179,7 +1297,7 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 </footer>
 
 <div class="bar">
-  <a class="btn" href="#plan">Получить план</a>
+  <a class="btn" href="#zamer">Заказать замер</a>
   <a class="ibtn ibtn--dark" href="https://t.me/PR0_XBOCT" target="_blank" rel="noopener" aria-label="Telegram">
     <svg class="icon icon--fill" aria-hidden="true"><use href="#i-tg"></use></svg>
   </a>
@@ -1445,7 +1563,7 @@ fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
 
     function message() {
       var lines = ['Здравствуйте! Заявка с сайта «Палки и Балки».'];
-      lines.push('Хочу план размещения электрики и предварительный расчёт.');
+      lines.push('Хочу записаться на бесплатный замер.');
       lines.push('Направление: ' + (dirs().length ? dirs().join(', ') : '—'));
       lines.push('Бюджет: ' + (budget() || '—'));
       if (name()) lines.push('Имя: ' + name());

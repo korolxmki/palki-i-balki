@@ -172,6 +172,7 @@ SHOTS = {
     "hallway": ("Прихожие", "hallway"),
     "living": ("Гостиные и ТВ-зоны", "living"),
     "office": ("Офисная мебель", "office"),
+    "production": ("Производство", "factory"),
 }
 
 

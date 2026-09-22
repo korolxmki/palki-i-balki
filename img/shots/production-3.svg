@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900" role="img" aria-label="Производство — место для фотографии проекта">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" stop-color="#b8ad9f"/><stop offset="1" stop-color="#948878"/>
+    </linearGradient>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse" patternTransform="rotate(-18)">
+      <path d="M0 0v60" stroke="#2a2725" stroke-width="1" opacity="0.18"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="900" fill="url(#bg)"/>
+  <rect width="1200" height="900" fill="url(#grid)"/>
+  <circle cx="985" cy="205" r="330" fill="#2a2725" opacity="0.10"/>
+  <g transform="translate(600 415) scale(6.2) translate(-24 -24)" fill="none" stroke="#2a2725"
+     stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" opacity="0.85">
+    <path d="M6 41V20l11 7V20l11 7V12l14 9v20z"/> <path d="M6 41h36"/> <path d="M31 30v5M22 32v3M13 32v3"/>
+  </g>
+  <g font-family="Manrope, 'Trebuchet MS', Arial, sans-serif" fill="#1a1816">
+    <text x="600" y="735" font-size="46" font-weight="700" text-anchor="middle" letter-spacing="1">Производство</text>
+    <text x="600" y="790" font-size="28" font-weight="500" text-anchor="middle" opacity="0.72">проект 03 · место для фото</text>
+  </g>
+</svg>
