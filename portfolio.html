@@ -196,6 +196,15 @@ ul { padding: 0; list-style: none; }
 .bar .btn { flex: 1; min-height: 50px; padding-inline: 12px; }
 .bar .ibtn { width: 50px; height: 50px; }
 
+/* ---------- Появление при скролле ---------- */
+.rise { opacity: 0; transform: translateY(30px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.rise.in { opacity: 1; transform: none; }
+.rise .h1, .rise .h2 { clip-path: inset(-12% -12% 112% -12%); transition: clip-path 1.15s var(--ease) 0.08s; }
+.rise.in .h1, .rise.in .h2 { clip-path: inset(-12% -12% -12% -12%); }
+[data-stagger] > * { opacity: 0; transform: translateY(26px); }
+[data-stagger] > *.in { opacity: 1; transform: none; transition: opacity 0.75s var(--ease), transform 0.75s var(--ease); }
+.item__media img { transition: transform 0.7s var(--ease); }
+
 @media (max-width: 1100px) {
   .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .top__grid, .menu__body { grid-template-columns: 1fr; }
@@ -214,6 +223,9 @@ ul { padding: 0; list-style: none; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: 0.001ms !important; animation-duration: 0.001ms !important; }
+  .rise { opacity: 1; transform: none; }
+  .rise .h1, .rise .h2 { clip-path: none; }
+  [data-stagger] > * { opacity: 1; transform: none; }
 }
 </style>
 </head>
@@ -264,7 +276,7 @@ ul { padding: 0; list-style: none; }
 
 <main id="main">
 <section class="wrap top">
-  <div class="top__grid">
+  <div class="top__grid rise">
     <div>
       <span class="label label--dim">Портфолио · Москва и область</span>
       <h1 class="h1">Проекты,<br>которые уже живут</h1>
@@ -280,7 +292,7 @@ ul { padding: 0; list-style: none; }
 </section>
 
 <section class="wrap" style="padding-bottom: var(--sec)">
-  <div class="filters" role="group" aria-label="Фильтр по направлениям">
+  <div class="filters rise" role="group" aria-label="Фильтр по направлениям">
     <button class="filter" type="button" data-filter="all" aria-pressed="true">Все проекты</button>
     <button class="filter" type="button" data-filter="kitchen" aria-pressed="false">Кухни</button>
     <button class="filter" type="button" data-filter="wardrobe" aria-pressed="false">Шкафы-купе</button>
@@ -293,7 +305,7 @@ ul { padding: 0; list-style: none; }
   </div>
 
   <!-- ЗАМЕНИТЕ: реальные фото проектов вместо кадрировок и плейсхолдеров -->
-  <div class="grid">
+  <div class="grid rise" data-stagger>
     <button class="item" type="button" data-dir="kitchen" data-title="Кухня в шпоне эвкалипта" data-meta="18 м² · шпон, кварцит, скрытая подсветка · 32 рабочих дня">
       <span class="item__media"><img src="img/shot-wide.jpg" alt="Кухня в шпоне эвкалипта" loading="lazy">
         <span class="item__zoom"><svg class="icon" aria-hidden="true"><use href="#i-plus"></use></svg></span></span>
@@ -376,7 +388,7 @@ ul { padding: 0; list-style: none; }
 
   <p class="empty" hidden>В этом направлении проекты пока не опубликованы — напишите нам, покажем свежие работы в Telegram.</p>
 
-  <div class="note">
+  <div class="note rise">
     <p>Не нашли похожую задачу? Нестандартные проекты мы делаем чаще типовых — покажем работы под вашу планировку.</p>
     <a class="btn" href="index.html#zamer">Заказать замер</a>
   </div>
@@ -448,6 +460,53 @@ ul { padding: 0; list-style: none; }
   var $$ = function (s, r) { return Array.prototype.slice.call((r || doc).querySelectorAll(s)); };
 
   var y = $('#year'); if (y) y.textContent = String(new Date().getFullYear());
+  var calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Появление блоков и очередь карточек */
+  (function rise() {
+    var items = $$('.rise');
+    function show(el) {
+      el.classList.add('in');
+      if (el.hasAttribute('data-stagger')) {
+        Array.prototype.forEach.call(el.children, function (kid, i) {
+          kid.style.transitionDelay = (i * 60) + 'ms';
+          kid.classList.add('in');
+        });
+      }
+    }
+    if (!items.length) return;
+    if (!('IntersectionObserver' in window) || calm) { items.forEach(show); return; }
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+    items.forEach(function (el) { io.observe(el); });
+  }());
+
+  /* Плавное пролистывание — то же, что на главной */
+  (function smoothWheel() {
+    if (calm || !window.matchMedia('(pointer: fine)').matches) return;
+    doc.documentElement.style.scrollBehavior = 'auto';
+    var target = window.scrollY, cur = target, raf = null, last = 0, RATE = 13;
+    function limit() { return Math.max(0, doc.documentElement.scrollHeight - window.innerHeight); }
+    function tick(now) {
+      var dt = Math.min((now - last) / 1000, 0.05); last = now;
+      var d = target - cur;
+      if (Math.abs(d) < 0.5) { cur = target; window.scrollTo(0, cur); raf = null; return; }
+      cur += d * (1 - Math.exp(-RATE * dt));
+      window.scrollTo(0, cur);
+      raf = requestAnimationFrame(tick);
+    }
+    function run() { if (!raf) { last = performance.now(); raf = requestAnimationFrame(tick); } }
+    window.addEventListener('wheel', function (e) {
+      if (body.classList.contains('is-locked') || e.ctrlKey) return;
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      e.preventDefault();
+      target = Math.min(Math.max(target + e.deltaY * (e.deltaMode === 1 ? 18 : 1), 0), limit());
+      run();
+    }, { passive: false });
+    window.addEventListener('scroll', function () { if (!raf) { target = cur = window.scrollY; } }, { passive: true });
+    window.addEventListener('resize', function () { target = cur = window.scrollY; }, { passive: true });
+  }());
 
   /* Меню */
   (function () {
