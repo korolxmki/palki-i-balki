@@ -240,6 +240,7 @@ nav.solid::before{opacity:0}
 section{position:relative;scroll-margin-top:88px} /* иначе шапка накрывает заголовок при переходе по ссылке */
 #hero{scroll-margin-top:0}
 .sec{padding:clamp(76px,10vw,150px) 0}
+.sec-tight{padding:clamp(54px,6.4vw,92px) 0}
 .sec-deep{background:var(--canvas-deep)}
 .sec-dark{background:var(--navy);color:var(--on-navy)}
 .sec-dark .lede,.sec-dark .tiny{color:var(--on-navy-2)}
@@ -460,9 +461,9 @@ section{position:relative;scroll-margin-top:88px} /* иначе шапка на�
 /* ============================================================
    ЗАПИСЬ
    ============================================================ */
-.book{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(34px,5vw,80px);align-items:start}
-.book h2{font-size:clamp(30px,4.4vw,58px);max-width:12ch}
-form{display:grid;gap:16px;margin-top:8px}
+.book{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:clamp(28px,4vw,64px);align-items:start}
+.book h2{font-size:clamp(27px,3.4vw,44px);max-width:12ch}
+form{display:grid;gap:13px;margin-top:4px}
 label{display:grid;gap:8px}
 label .lb{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--on-navy-2)}
 input,textarea{
@@ -473,14 +474,14 @@ input,textarea{
 }
 input::placeholder,textarea::placeholder{color:rgba(163,169,180,.62)}
 input:focus,textarea:focus{outline:none;border-color:var(--accent-muted);background:rgba(237,233,226,.1)}
-textarea{resize:vertical;min-height:104px}
-.formnote{font-size:13.5px;color:var(--on-navy-2);max-width:52ch}
+textarea{resize:vertical;min-height:82px}
+.formnote{font-size:13px;color:var(--on-navy-2);max-width:52ch}
 .ok{display:none;padding:18px 20px;border:1px solid var(--accent-muted);border-radius:2px;background:rgba(185,207,202,.1);font-size:15.5px}
 .ok.show{display:block}
 
-.contacts{list-style:none;margin:30px 0 0;padding:0;display:grid;gap:2px}
+.contacts{list-style:none;margin:24px 0 0;padding:0;display:grid;gap:2px}
 .contacts a{
-  display:flex;align-items:baseline;gap:16px;text-decoration:none;padding:16px 0;
+  display:flex;align-items:baseline;gap:16px;text-decoration:none;padding:13px 0;
   border-bottom:1px solid rgba(163,169,180,.26);transition:padding-left .35s var(--ease)
 }
 .contacts a:hover{padding-left:10px}
@@ -498,6 +499,62 @@ footer .warn{color:var(--on-navy);font-weight:500}
 footer .todo{color:var(--accent-muted)}
 .footlink{display:inline-flex;align-items:center;min-height:44px;color:var(--on-navy);text-decoration:none;font-size:16px}
 .footlink:hover{color:var(--accent-muted)}
+
+/* ============================================================
+   ПОЛОСА С КАБИНЕТОМ
+   ============================================================ */
+.strip{position:relative;background:var(--canvas-deep);overflow:hidden}
+.strip figure{margin:0;height:clamp(260px,40vw,500px);overflow:hidden}
+/* картинка выше рамки и приподнята, чтобы параллаксу было куда ехать без пустых краёв */
+.strip img{position:relative;top:-16%;width:100%;height:132%;object-fit:cover;object-position:50% 45%;will-change:transform}
+.stripcap{
+  display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;
+  padding:20px 0 0;color:var(--text-secondary);font-size:15.5px
+}
+.stripcap span{
+  font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent)
+}
+
+/* ============================================================
+   АНИМАЦИИ: ЗАНАВЕС, СЛОВА, РАСКРЫТИЕ ОТВЕТОВ
+   ============================================================ */
+/* картинка выезжает из-под шторки, кадр при этом успокаивается */
+.reveal{clip-path:inset(0 0 100% 0);transition:clip-path 1.05s var(--ease)}
+.in .reveal,.in.reveal{clip-path:inset(0 0 0 0)}
+.reveal img{transform:scale(1.07);transition:transform 1.5s var(--ease)}
+.in .reveal img,.in.reveal img{transform:scale(1)}
+
+/* заголовки поднимаются пословно из-под маски, хвостам букв оставлено место */
+.hw{display:inline-block;overflow:hidden;padding-bottom:.12em;margin-bottom:-.12em;vertical-align:bottom}
+.hw i{
+  display:inline-block;font-style:normal;transform:translateY(106%);
+  transition:transform .92s var(--ease);transition-delay:var(--d,0ms)
+}
+.in .hw i{transform:translateY(0)}
+
+/* ответы в вопросах раскрываются плавно, а не прыжком */
+.faq .answ{display:grid;grid-template-rows:0fr;transition:grid-template-rows .46s var(--ease)}
+.faq details[open] .answ{grid-template-rows:1fr}
+.faq details.closing .answ{grid-template-rows:0fr}
+.faq .answ>.ans{overflow:hidden;min-height:0}
+
+/* подчёркивание в шапке набегает, а не появляется */
+.navlinks a{position:relative}
+.navlinks a::after{
+  content:"";position:absolute;left:0;right:0;bottom:-5px;height:1px;background:var(--accent);
+  transform:scaleX(0);transform-origin:right;transition:transform .42s var(--ease)
+}
+.navlinks a:hover::after,.navlinks a:focus-visible::after{transform:scaleX(1);transform-origin:left}
+
+/* кнопка чуть проседает под нажатием */
+.btn:active{transform:translateY(1px) scale(.988)}
+
+/* строки списков подъезжают по очереди */
+.checklist li,.edulist li,.facts li,.dir li{
+  opacity:0;transform:translateY(14px);
+  transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:var(--d,0ms)
+}
+.in .checklist li,.in .edulist li,.in .facts li,.in .dir li{opacity:1;transform:none}
 
 /* ============================================================
    ПОЛ КАЧЕСТВА
@@ -545,6 +602,13 @@ footer .todo{color:var(--accent-muted)}
   .findings li{opacity:1;transform:none}
   .draw line{stroke-dashoffset:0}
   .step::after{width:38%}
+  .reveal{clip-path:none}
+  .reveal img{transform:none}
+  .hw i{transform:none}
+  .faq .answ,.faq details.closing .answ{grid-template-rows:1fr}
+  .checklist li,.edulist li,.facts li,.dir li{opacity:1;transform:none}
+  .navlinks a::after{transform:scaleX(0)}
+  .strip img{transform:none}
   .scope .deep{-webkit-mask-image:none;mask-image:none}
   .lens{opacity:0}
   .scope .hint{opacity:0}
@@ -643,10 +707,10 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
     <p class="kicker rev">О враче</p>
     <div class="about">
       <div class="rev">
-        <figure class="pcard" style="margin:0">
-          <img src="assets/maria-cabinet.jpg" width="578" height="400" loading="lazy"
-               alt="Мария Маликова в медицинском кабинете">
-          <figcaption>Приём, кабинет</figcaption>
+        <figure class="pcard reveal" style="margin:0">
+          <img src="assets/maria-portrait.jpg" width="607" height="684" loading="lazy"
+               alt="Портрет Марии Маликовой">
+          <figcaption>Маликова Мария Сергеевна</figcaption>
         </figure>
         <ul class="facts">
           <li><b>2015</b><span>в медицине с этого года</span></li>
@@ -851,6 +915,17 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
   </div>
 </section>
 
+<!-- ================= ПОЛОСА С КАБИНЕТОМ ================= -->
+<section class="strip" id="room" data-obs aria-label="Кабинет">
+  <figure class="reveal">
+    <img class="par" data-par="0.16" src="assets/room.jpg" width="1920" height="1038"
+         loading="lazy" alt="Процедурный кабинет в мягком дневном свете">
+  </figure>
+  <div class="wrap">
+    <p class="stripcap rev"><span>Кабинет</span>Приём, осмотр и удаление идут в оборудованном кабинете.</p>
+  </div>
+</section>
+
 <!-- ================= БОРОДАВКИ ================= -->
 <section class="sec" id="warts" data-obs>
   <div class="wrap">
@@ -912,24 +987,6 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
   </div>
 </section>
 
-<!-- ================= КАБИНЕТ ================= -->
-<section class="sec sec-deep" id="room" data-obs>
-  <div class="wrap">
-    <div class="method" style="margin-top:0">
-      <div class="rev">
-        <p class="kicker">Когда лучше удалять</p>
-        <h2 style="font-size:clamp(26px,3vw,42px);max-width:15ch">Не в жару и не перед отпуском.</h2>
-        <p class="lede" style="margin-top:22px">После удаления образуется корочка, и её нельзя размачивать. Поэтому не стоит планировать удаление на период активного солнца, а также прямо перед бассейном, баней или сауной.</p>
-        <p class="lede" style="margin-top:16px">Лучшее время это межсезонье и холодные месяцы, когда кожа закрыта одеждой и солнца мало.</p>
-      </div>
-      <figure class="rev">
-        <img src="assets/room.jpg" width="1920" height="1038" loading="lazy"
-             alt="Процедурный кабинет в мягком дневном свете">
-      </figure>
-    </div>
-  </div>
-</section>
-
 <!-- ================= НАПРАВЛЕНИЯ ================= -->
 <section class="sec" id="dirs" data-obs>
   <div class="wrap">
@@ -978,9 +1035,10 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
         <p class="kicker">Образование</p>
         <h2 style="font-size:clamp(26px,3vw,42px);max-width:13ch">Я всё время учусь.</h2>
         <p class="lede" style="margin-top:22px">Университет и ординатура это основа. Дальше идут школы и курсы, и их около сотни: сертификаты, постановки руки, мастер-классы.</p>
-        <figure class="pcard rev" style="margin:34px 0 0;max-width:320px">
-          <img src="assets/maria-portrait.jpg" width="607" height="684" loading="lazy"
-               alt="Портрет Марии Маликовой">
+        <figure class="pcard rev reveal" style="margin:34px 0 0;max-width:340px">
+          <img src="assets/maria-cabinet.jpg" width="578" height="400" loading="lazy"
+               alt="Мария Маликова в медицинском кабинете">
+          <figcaption>Приём, кабинет</figcaption>
         </figure>
       </div>
 
@@ -1027,63 +1085,63 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
     <div class="faq rev">
       <details>
         <summary>Это больно?</summary>
-        <div class="ans">
+        <div class="answ"><div class="ans">
           <p>Большие и объёмные образования удаляются под местной анестезией. Вы чувствуете только укол обезболивающего, само удаление безболезненно.</p>
           <p>Маленькие папилломы обычно удаляют либо вообще без анестезии, либо, при высокой чувствительности, с местным анестетиком.</p>
-        </div>
+        </div></div>
       </details>
       <details>
         <summary>Останется ли шрам?</summary>
-        <div class="ans">
+        <div class="answ"><div class="ans">
           <p>После маленьких папиллом и ангиом шрамов не остаётся.</p>
           <p>После больших образований остаётся плоский рубец примерно такого же диаметра, каким было само образование. Он не будет заметным.</p>
-        </div>
+        </div></div>
       </details>
       <details>
         <summary>Может ли удаление спровоцировать рак?</summary>
-        <div class="ans">
+        <div class="answ"><div class="ans">
           <p>Нет. Удаление доброкачественного образования не может спровоцировать рак кожи.</p>
-        </div>
+        </div></div>
       </details>
       <details>
         <summary>Нужна ли гистология?</summary>
-        <div class="ans">
+        <div class="answ"><div class="ans">
           <p>Папилломы и себорейный кератоз можно удалять без гистологического исследования.</p>
           <p>Все невусы, то есть родинки, лучше удалять с гистологией.</p>
-        </div>
+        </div></div>
       </details>
       <details>
         <summary>Когда не стоит удалять?</summary>
-        <div class="ans">
+        <div class="answ"><div class="ans">
           <p>В жару и в период активного солнца, а также прямо перед отпуском, бассейном, баней или сауной. После удаления образуется корочка, и размачивать её не нужно.</p>
-        </div>
+        </div></div>
       </details>
       <details>
         <summary>Сколько всё заживает?</summary>
-        <div class="ans">
+        <div class="answ"><div class="ans">
           <p>Обычно около недели, пока не сойдёт корочка. На её месте остаётся розовый след, который потом светлеет.</p>
           <p>После маленьких папиллом уже через три дня ничего не заметно.</p>
-        </div>
+        </div></div>
       </details>
       <details>
         <summary>Как часто проверять родинки?</summary>
-        <div class="ans">
+        <div class="answ"><div class="ans">
           <p>Раз в год стоит показывать все новообразования дерматологу или онкологу для осмотра.</p>
           <p>Не дожидайтесь планового срока, если образование растёт, изменилось по цвету, покрылось корочкой или кровоточит, а также если в прошлом было много солнечных ожогов.</p>
-        </div>
+        </div></div>
       </details>
     </div>
   </div>
 </section>
 
 <!-- ================= ЗАПИСЬ ================= -->
-<section class="sec sec-dark" id="book" data-obs>
+<section class="sec sec-dark sec-tight" id="book" data-obs>
   <div class="wrap">
     <div class="book">
       <div class="rev">
         <p class="kicker">Запись</p>
         <h2>Придите и посмотрим.</h2>
-        <p class="lede" style="margin-top:24px">Осмотр под дерматоскопом это не больно и ни к чему не обязывает. Если удалять не нужно, я так и скажу.</p>
+        <p class="lede" style="margin-top:16px">Осмотр под дерматоскопом это не больно и ни к чему не обязывает. Если удалять не нужно, я так и скажу.</p>
 
         <ul class="contacts">
           <li><a href="tel:+79371774741"><span class="lb">Телефон</span><span class="vl">+7 937 177-47-41</span></a></li>
@@ -1099,15 +1157,11 @@ body.paused *,body.paused *::before,body.paused *::after{animation-play-state:pa
             <input type="text" name="name" id="f-name" autocomplete="name" placeholder="Имя" required>
           </label>
           <label>
-            <span class="lb">Телефон для связи</span>
-            <input type="tel" name="phone" id="f-phone" autocomplete="tel" placeholder="+7" required>
-          </label>
-          <label>
             <span class="lb">Что беспокоит</span>
             <textarea name="msg" id="f-msg" placeholder="Например: папиллома на шее, цепляется цепочкой"></textarea>
           </label>
           <button class="btn btn-light" type="submit">Отправить в WhatsApp</button>
-          <p class="formnote">Кнопка откроет WhatsApp на номер врача с уже готовым текстом. Отправку вы подтверждаете сами, ничего не уходит автоматически.</p>
+          <p class="formnote">Кнопка откроет WhatsApp с готовым текстом. Телефон вводить не нужно, он придёт вместе с сообщением. Отправку вы подтверждаете сами.</p>
         </form>
         <div class="ok" id="formok" role="status">Открываю WhatsApp. Если окно не появилось, напишите напрямую на +7 937 177-47-41.</div>
       </div>
@@ -1158,7 +1212,15 @@ var nav=document.getElementById('nav');
 var bandEls=[].slice.call(document.querySelectorAll('#bands .band'));
 
 /* страница остаётся целой, если картинка не пришла */
-if(shotimg){shotimg.addEventListener('error',function(){shot.classList.add('dead')})}
+function killShot(img){
+  var box=img.parentNode;
+  if(box&&box.classList)box.classList.add('dead');
+}
+[].slice.call(document.querySelectorAll('#shotimg,.shotwrap img')).forEach(function(img){
+  img.addEventListener('error',function(){killShot(img)});
+  /* картинка могла отвалиться ещё до того, как скрипт повесил обработчик */
+  if(img.complete&&img.naturalWidth===0)killShot(img);
+});
 
 /* ---------- разбивка текста на слова и буквы ---------- */
 function split(el){
@@ -1236,7 +1298,9 @@ var target=0,shown=0,rafId=null,lastTick=0,onScreen=true,scrubOn=false;
 
 function tick(now){
   var dt=Math.min(100,now-(lastTick||now));lastTick=now;
-  var kk=0.16;
+  /* если страница уже едет с инерцией, герой должен идти за ней почти вплотную,
+     иначе два сглаживания складываются и движение превращается в кисель */
+  var kk=(window.__smoothOn?0.34:0.16);
   shown+=(target-shown)*(1-Math.pow(1-kk,dt/16.667));
   var animating=false;
   if(loadStart&&loadK<1){
@@ -1304,20 +1368,41 @@ function navCheck(){
 window.addEventListener('scroll',navCheck,{passive:true});navCheck();
 
 /* ---------- входы секций ---------- */
+var io=null;
+function markIn(el){
+  if(el.classList.contains('in'))return;
+  el.classList.add('in');
+  if(io)io.unobserve(el);
+  window.setTimeout(function(){el.classList.add('done')},1600);
+}
 if('IntersectionObserver'in window){
-  var io=new IntersectionObserver(function(es){
-    es.forEach(function(e){
-      if(!e.isIntersecting)return;
-      var el=e.target;
-      el.classList.add('in');
-      io.unobserve(el);
-      window.setTimeout(function(){el.classList.add('done')},1600);
-    });
-  },{rootMargin:'0px 0px -12% 0px',threshold:0.12});
+  /* порог держим нулевым: секции выше экрана при большом пороге
+     могут не дотянуть до него и остаться невидимыми */
+  io=new IntersectionObserver(function(es){
+    es.forEach(function(e){if(e.isIntersecting)markIn(e.target)});
+  },{rootMargin:'0px 0px -10% 0px',threshold:0});
   [].slice.call(document.querySelectorAll('[data-obs]')).forEach(function(el){io.observe(el)});
 }else{
   [].slice.call(document.querySelectorAll('[data-obs]')).forEach(function(el){el.classList.add('in','done')});
 }
+
+/* подстраховка: после прыжка по якорю или открытия ссылки с якорем
+   ни один блок не имеет права остаться невидимым */
+var revRaf=null;
+function revealVisible(){
+  revRaf=null;
+  var vh=window.innerHeight;
+  [].slice.call(document.querySelectorAll('[data-obs]:not(.in)')).forEach(function(el){
+    /* условия на нижнюю границу нет нарочно: секция, которую уже пролистали вверх,
+       тоже обязана быть показана, иначе она останется невидимой навсегда */
+    if(el.getBoundingClientRect().top<vh*0.92)markIn(el);
+  });
+}
+function revKick(){if(revRaf===null)revRaf=requestAnimationFrame(revealVisible)}
+window.addEventListener('scroll',revKick,{passive:true});
+window.addEventListener('hashchange',revKick);
+window.addEventListener('load',revKick);
+revKick();
 
 /* ---------- дерматоскоп ---------- */
 (function(){
@@ -1386,13 +1471,10 @@ if('IntersectionObserver'in window){
   form.addEventListener('submit',function(e){
     e.preventDefault();
     var name=(document.getElementById('f-name').value||'').trim();
-    var phone=(document.getElementById('f-phone').value||'').trim();
     var msg=(document.getElementById('f-msg').value||'').trim();
     if(!name){document.getElementById('f-name').focus();return}
-    if(!phone){document.getElementById('f-phone').focus();return}
     var t='Здравствуйте! Хочу записаться на приём.'
       +'\nИмя: '+name
-      +'\nТелефон: '+phone
       +(msg?'\nЧто беспокоит: '+msg:'');
     ok.classList.add('show');
     window.open('https://wa.me/79371774741?text='+encodeURIComponent(t),'_blank','noopener');
@@ -1404,15 +1486,187 @@ document.addEventListener('visibilitychange',function(){
   document.body.classList.toggle('paused',document.hidden);
 });
 
+/* ---------- заголовки поднимаются пословно ---------- */
+function splitHead(el){
+  if(el.dataset.hw)return;
+  var text=el.textContent.replace(/\s+/g,' ').trim();
+  if(!text)return;
+  var words=text.split(' ');
+  el.textContent='';
+  var sr=document.createElement('span');sr.className='sr';sr.textContent=text;el.appendChild(sr);
+  var vis=document.createElement('span');vis.setAttribute('aria-hidden','true');
+  words.forEach(function(w,i){
+    var box=document.createElement('span');box.className='hw';
+    var inner=document.createElement('i');
+    inner.textContent=w;
+    inner.style.setProperty('--d',(i*58)+'ms');
+    box.appendChild(inner);
+    vis.appendChild(box);
+    if(i<words.length-1)vis.appendChild(document.createTextNode(' '));
+  });
+  el.appendChild(vis);
+  el.dataset.hw='1';
+}
+[].slice.call(document.querySelectorAll('main section:not(#hero) h2')).forEach(splitHead);
+
+/* ---------- строки списков подъезжают по очереди ---------- */
+[].slice.call(document.querySelectorAll('.checklist,.edulist,.facts,.dir ul')).forEach(function(list){
+  [].slice.call(list.children).forEach(function(li,i){
+    li.style.setProperty('--d',(60+i*68)+'ms');
+  });
+});
+
+/* ---------- вопросы раскрываются плавно ---------- */
+(function(){
+  var SHUT=460;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)');
+  function close(d){
+    if(reduce.matches){d.open=false;return}
+    d.classList.add('closing');
+    window.setTimeout(function(){d.open=false;d.classList.remove('closing')},SHUT);
+  }
+  [].slice.call(document.querySelectorAll('.faq details')).forEach(function(d){
+    var s=d.querySelector('summary');
+    if(!s)return;
+    s.addEventListener('click',function(e){
+      e.preventDefault();
+      if(d.open){close(d);return}
+      /* соседей закрываем, чтобы список не разъезжался */
+      [].slice.call(d.parentNode.querySelectorAll('details[open]')).forEach(function(o){
+        if(o!==d)close(o);
+      });
+      d.open=true;
+    });
+  });
+})();
+
+/* ---------- лёгкий параллакс картинок ---------- */
+var pars=[].slice.call(document.querySelectorAll('.par'));
+var parRaf=null;
+function parUpdate(){
+  parRaf=null;
+  var vh=window.innerHeight;
+  for(var i=0;i<pars.length;i++){
+    var el=pars[i],box=el.parentNode.getBoundingClientRect();
+    if(box.bottom<-60||box.top>vh+60)continue;
+    var amt=parseFloat(el.dataset.par||'0.12');
+    var p=(box.top+box.height/2-vh/2)/vh;      /* примерно от -1 до 1 */
+    var y=(-p*amt*box.height).toFixed(1);
+    if(el.dataset.y!==y){el.dataset.y=y;el.style.transform='translate3d(0,'+y+'px,0)'}
+  }
+}
+function parKick(){
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+  if(parRaf===null)parRaf=requestAnimationFrame(parUpdate);
+}
+function parClear(){
+  if(parRaf!==null){cancelAnimationFrame(parRaf);parRaf=null}
+  pars.forEach(function(el){el.style.transform='';el.dataset.y=''});
+}
+if(pars.length){
+  window.addEventListener('scroll',parKick,{passive:true});
+  window.addEventListener('resize',parKick,{passive:true});
+  parKick();
+}
+
+/* ---------- плавное пролистывание с инерцией ---------- */
+var sm={on:false,target:0,raf:null,last:0};
+window.__smoothOn=false;
+
+function smoothAllowed(){
+  /* проверяем не наличие мыши, а отсутствие касания: часть машин про мышь молчит,
+     и тогда условие на pointer:fine выключило бы инерцию на обычном компьютере */
+  return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      && !window.matchMedia('(pointer: coarse)').matches
+      && window.innerWidth>860;
+}
+function maxY(){return Math.max(0,document.documentElement.scrollHeight-window.innerHeight)}
+function smoothTick(now){
+  var dt=Math.min(100,now-(sm.last||now));sm.last=now;
+  var cur=window.scrollY,d=sm.target-cur;
+  if(Math.abs(d)<0.5){window.scrollTo(0,sm.target);sm.raf=null;sm.last=0;return}
+  var k=0.135;
+  window.scrollTo(0,cur+d*(1-Math.pow(1-k,dt/16.667)));
+  sm.raf=requestAnimationFrame(smoothTick);
+}
+function smoothTo(y){
+  sm.target=Math.max(0,Math.min(maxY(),y));
+  if(sm.raf===null){sm.last=0;sm.raf=requestAnimationFrame(smoothTick)}
+}
+function inScrollable(node){
+  while(node&&node!==document.body&&node.nodeType===1){
+    var tag=node.tagName;
+    if(tag==='TEXTAREA'||tag==='SELECT')return true;
+    node=node.parentNode;
+  }
+  return false;
+}
+function onWheel(e){
+  if(!sm.on||e.ctrlKey||e.defaultPrevented)return;
+  if(inScrollable(e.target))return;
+  e.preventDefault();
+  var unit=e.deltaMode===1?18:(e.deltaMode===2?window.innerHeight:1);
+  smoothTo(sm.target+e.deltaY*unit);
+}
+/* когда страницу двигают не колесом, цель просто догоняет реальное положение */
+window.addEventListener('scroll',function(){if(sm.raf===null)sm.target=window.scrollY},{passive:true});
+
+function applySmooth(){
+  var want=smoothAllowed();
+  if(want===sm.on)return;
+  sm.on=want;window.__smoothOn=want;
+  if(want){
+    document.documentElement.style.scrollBehavior='auto';
+    window.addEventListener('wheel',onWheel,{passive:false});
+    sm.target=window.scrollY;
+  }else{
+    document.documentElement.style.scrollBehavior='';
+    window.removeEventListener('wheel',onWheel,{passive:false});
+    if(sm.raf!==null){cancelAnimationFrame(sm.raf);sm.raf=null}
+  }
+}
+applySmooth();
+window.addEventListener('resize',function(){
+  applySmooth();
+  if(sm.raf===null)sm.target=window.scrollY;
+  else sm.target=Math.min(sm.target,maxY());
+},{passive:true});
+
+/* ссылки внутри страницы едут тем же движением */
+document.addEventListener('click',function(e){
+  var node=e.target,a=null;
+  while(node&&node!==document.body&&node.nodeType===1){
+    if(node.tagName==='A'){a=node;break}
+    node=node.parentNode;
+  }
+  if(!a)return;
+  var href=a.getAttribute('href');
+  if(!href||href.charAt(0)!=='#'||href.length<2)return;
+  var el=document.getElementById(href.slice(1));
+  if(!el||!sm.on)return;
+  e.preventDefault();
+  var off=parseFloat(window.getComputedStyle(el).scrollMarginTop)||0;
+  smoothTo(el.getBoundingClientRect().top+window.scrollY-off);
+  if(window.history&&history.replaceState)history.replaceState(null,'',href);
+});
+
+document.addEventListener('visibilitychange',function(){
+  if(document.hidden&&sm.raf!==null){cancelAnimationFrame(sm.raf);sm.raf=null;sm.target=window.scrollY}
+});
+
 /* ---------- режим без анимации: обе стороны ---------- */
 (function(){
   var rm=window.matchMedia('(prefers-reduced-motion: reduce)');
   function onFlip(e){
     if(e.matches){
       disableScrub();
+      applySmooth();
+      parClear();
       [].slice.call(document.querySelectorAll('[data-obs]')).forEach(function(el){el.classList.add('in','done')});
     }else{
       applyHeroMode();
+      applySmooth();
+      parKick();
     }
   }
   if(rm.addEventListener)rm.addEventListener('change',onFlip);
