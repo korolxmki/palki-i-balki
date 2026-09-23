@@ -125,6 +125,7 @@ ul { padding: 0; list-style: none; }
 .top__aside { display: grid; gap: 22px; }
 .top__cta { display: flex; flex-wrap: wrap; gap: 10px; }
 
+/* PF:STYLE:START */
 /* Фильтры и сетка */
 .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: clamp(22px, 3vw, 36px); }
 .filter {
@@ -176,6 +177,7 @@ ul { padding: 0; list-style: none; }
 .lightbox__cap { text-align: center; font-weight: 600; }
 .lightbox__cap small { display: block; margin-top: 6px; font-weight: 400; color: var(--greige); }
 .lightbox__close { position: absolute; inset: clamp(14px, 3vw, 28px) clamp(14px, 3vw, 28px) auto auto; }
+/* PF:STYLE:END */
 
 /* Подвал */
 .foot { margin: var(--gap) var(--pad) 0; padding: clamp(44px, 5vw, 80px) 0 26px; background: var(--graphite); border-radius: var(--r-lg); }
@@ -291,6 +293,7 @@ ul { padding: 0; list-style: none; }
   </div>
 </section>
 
+<!-- PF:BODY:START -->
 <section class="wrap" style="padding-bottom: var(--sec)">
   <div class="filters rise" role="group" aria-label="Фильтр по направлениям">
     <button class="filter" type="button" data-filter="all" aria-pressed="true">Все проекты</button>
@@ -402,6 +405,7 @@ ul { padding: 0; list-style: none; }
   <img src="" alt="">
   <p class="lightbox__cap"></p>
 </div>
+<!-- PF:BODY:END -->
 
 <footer class="foot">
   <div class="wrap">
@@ -533,6 +537,7 @@ ul { padding: 0; list-style: none; }
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
   }());
 
+  /* PF:JS:START */
   /* Фильтры */
   (function () {
     var filters = $$('.filter'), items = $$('.item'), empty = $('.empty');
@@ -552,6 +557,10 @@ ul { padding: 0; list-style: none; }
       } catch (e) { /* не критично */ }
     }
     filters.forEach(function (f) { f.addEventListener('click', function () { apply(f.dataset.filter); }); });
+    /* в однофайловой сборке ссылки направлений сразу включают фильтр */
+    $$('[data-pf]').forEach(function (a) {
+      a.addEventListener('click', function () { apply(a.dataset.pf); });
+    });
     var hash = window.location.hash.slice(1);
     apply(filters.some(function (f) { return f.dataset.filter === hash; }) ? hash : 'all');
   }());
@@ -581,6 +590,7 @@ ul { padding: 0; list-style: none; }
     box.addEventListener('click', function (e) { if (e.target === box || e.target.closest('.lightbox__close')) close(); });
     doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && box.dataset.open === 'true') close(); });
   }());
+  /* PF:JS:END */
 }());
 </script>
 </body>

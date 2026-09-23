@@ -3,13 +3,16 @@
 Собирает один самодостаточный HTML для быстрого деплоя (Vercel Drop и т.п.).
 
 Что делает:
+  • вклеивает портфолио со второй страницы прямо в главную — стили, разметку
+    и логику фильтров с просмотром фото (по маркерам PF:* в portfolio.html);
+  • переводит ссылки portfolio.html на эту внутреннюю секцию, а ссылки
+    по направлениям сразу включают нужный фильтр;
   • перекодирует фотографии в WebP и вшивает их как data:URI;
   • вшивает SVG-заглушки и фавикон;
-  • переводит ссылки на portfolio.html на внутреннюю секцию #portfolio
-    (в одном файле второй страницы быть не может);
   • убирает og:image — картинка для соцсетей не может быть data:URI.
 
-Результат: dist/palki-i-balki.html — перетаскивается в браузер как есть.
+Результат: dist/palki-i-balki.html — весь сайт в одном файле,
+перетаскивается в браузер, на хостинг или в другой чат как есть.
 
 Запуск: python3 tools/build_single.py
 """
@@ -57,11 +60,52 @@ def data_uri(src: str) -> str:
     return "data:image/webp;base64," + base64.b64encode(as_webp(path, width, quality)).decode()
 
 
+def part(text: str, name: str) -> str:
+    """Кусок между маркерами PF:<name>:START и PF:<name>:END."""
+    m = re.search(
+        rf"PF:{name}:START\s*(?:\*/|-->)?\s*(.*?)\s*(?:/\*|<!--)\s*PF:{name}:END",
+        text, re.S,
+    )
+    if not m:
+        raise SystemExit(f"в portfolio.html нет маркеров PF:{name}")
+    return m.group(1)
+
+
+def merge_portfolio(html: str) -> str:
+    """Переносит портфолио со второй страницы внутрь главной."""
+    pf = (ROOT / "portfolio.html").read_text(encoding="utf-8")
+
+    css = part(pf, "STYLE")
+    body = part(pf, "BODY").replace('id="lightbox"', 'id="lightbox"', 1)
+    js = part(pf, "JS")
+
+    # секция портфолио получает свой якорь, чтобы не спорить с тизером
+    body = body.replace(
+        '<section class="wrap" style="padding-bottom: var(--sec)">',
+        '<section class="wrap" id="portfolio-all" style="padding-bottom: var(--sec)">',
+        1,
+    )
+    html = html.replace("</style>", "\n/* ---- портфолио, перенесённое со второй страницы ---- */\n" + css + "\n</style>", 1)
+    html = html.replace("<!-- SINGLE:PORTFOLIO -->", body, 1)
+    html = html.replace("/* SINGLE:JS */", js, 1)
+
+    # ссылки: направления включают фильтр, остальные просто ведут в секцию
+    html = re.sub(
+        r'href="portfolio\.html#([a-z]+)"',
+        lambda m: f'href="#portfolio-all" data-pf="{m.group(1)}"',
+        html,
+    )
+    html = html.replace('href="portfolio.html"', 'href="#portfolio-all"')
+    # в перенесённом куске были ссылки обратно на главную — теперь это та же страница
+    html = html.replace('href="index.html#', 'href="#').replace('href="index.html"', 'href="#hero"')
+    return html
+
+
 def main() -> None:
     html = (ROOT / "index.html").read_text(encoding="utf-8")
 
-    # 1. ссылки на вторую страницу → внутренняя секция
-    html = re.sub(r'href="portfolio\.html(?:#[^"]*)?"', 'href="#portfolio"', html)
+    # 1. вторая страница переезжает внутрь первой
+    html = merge_portfolio(html)
 
     # 2. og:image убираем: data:URI соцсети не читают
     html = re.sub(r'\s*<meta property="og:image"[^>]*>', "", html)
